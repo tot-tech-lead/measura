@@ -36,7 +36,15 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Geologica.ttf"]
+          "fonts": [
+            "./assets/fonts/Geologica.ttf"
+          ]
+        }
+      ],
+      [
+        "expo-asset",
+        {
+          "assets": "./assets"
         }
       ]
     ],
