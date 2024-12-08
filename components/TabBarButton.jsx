@@ -52,15 +52,14 @@ const TabBarButton = (props) => {
             <Animated.View style={[animatedIconStyle]}>
                 {
                     icons[routeName]({
-                        color,
                         size: 32,
+                        isFocused
                     })
                 }
             </Animated.View>
 
             <Animated.Text style={[{
                 color,
-                size: 32,
             }, animatedTextStyle, styles.label]}>
                 {label}
             </Animated.Text>
