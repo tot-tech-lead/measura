@@ -2,7 +2,6 @@ import {Stack} from "expo-router";
 import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from "react";
-import {Text} from "react-native";
 
 
 SplashScreen.preventAutoHideAsync();
@@ -10,7 +9,15 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({
-        'Geologica': require('../assets/fonts/Geologica.ttf'),
+        'GeologicaThin': require("../assets/fonts/Geologica_Thin.otf"),
+        'GeologicaExtraLight': require("../assets/fonts/Geologica_ExtraLight.otf"),
+        'GeologicaLight': require("../assets/fonts/Geologica_Light.otf"),
+        'GeologicaRegular': require("../assets/fonts/Geologica_Regular.otf"),
+        'GeologicaMedium': require("../assets/fonts/Geologica_Medium.otf"),
+        'GeologicaSemiBold': require("../assets/fonts/Geologica_SemiBold.otf"),
+        'GeologicaBold': require("../assets/fonts/Geologica_Bold.otf"),
+        'GeologicaExtraBold': require("../assets/fonts/Geologica_ExtraBold.otf"),
+        'GeologicaBlack': require("../assets/fonts/Geologica_Black.otf"),
     });
 
     useEffect(() => {

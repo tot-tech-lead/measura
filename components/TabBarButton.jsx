@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
         gap: 4
     },
     label: {
-        fontFamily: "Geologica",
-        fontWeight: 300,
+        fontFamily: "GeologicaRegular",
+        fontWeight: "400",
         fontSize: 12,
     }
 })

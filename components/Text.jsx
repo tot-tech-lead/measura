@@ -1,12 +1,28 @@
-import {Text} from "react-native";
+import React from 'react';
+import {Text} from 'react-native';
 
-const Txt = ({ style, ...props }) => {
+
+const fonts = [
+    'GeologicaThin',
+    'GeologicaExtraLight',
+    'GeologicaLight',
+    'GeologicaRegular',
+    'GeologicaMedium',
+    'GeologicaSemiBold',
+    'GeologicaBold',
+    'GeologicaExtraBold',
+    'GeologicaBlack',
+]
+
+export default function Txt({children, style}) {
+    let font = fonts[style?.fontWeight ? Math.floor(Number(style.fontWeight) / 100) - 1 : 3];
+
     return (
-        <Text
-            {...props}
-            style={[{ fontFamily: "Geologica", color: "#000" }, style]}
-        />
+        <Text style={[
+            {fontFamily: font}, style, {fontWeight: "auto"}
+        ]}>
+            {children}
+        </Text>
     );
-};
+}
 
-export default Txt;
