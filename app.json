@@ -8,11 +8,12 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "assets": [
-      "./assets/"
+    "assetBundlePatterns": [
+      "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.measura"
     },
     "android": {
       "adaptiveIcon": {
@@ -37,31 +38,18 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/Geologica_Black.otf",
-            "./assets/fonts/Geologica_Bold.otf",
-            "./assets/fonts/Geologica_ExtraBold.otf",
-            "./assets/fonts/Geologica_ExtraLight.otf",
-            "./assets/fonts/Geologica_Light.otf",
-            "./assets/fonts/Geologica_Medium.otf",
-            "./assets/fonts/Geologica_Regular.otf",
-            "./assets/fonts/Geologica_SemiBold.otf",
-            "./assets/fonts/Geologica_Thin.otf"
-          ]
-        }
-      ],
-      [
-        "expo-asset",
-        {
-          "assets": "./assets"
-        }
-      ]
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3a846fe7-920c-463d-bccc-cbf9f684806d"
+      }
     }
   }
 }
