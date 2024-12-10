@@ -1,6 +1,6 @@
-import ProjectsIcon from "../components/ProjectsIcon";
-import SettingsIcon from "../components/SettingsIcon";
-import ProfileIcon from "../components/ProfileIcon";
+import ProjectsIcon from "../components/icons/ProjectsIcon";
+import SettingsIcon from "../components/icons/SettingsIcon";
+import ProfileIcon from "../components/icons/ProfileIcon";
 
 export const icons = {
     index: (props)=> <ProjectsIcon size={props.size} active={props.isFocused} />,
