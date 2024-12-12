@@ -44,7 +44,10 @@ const Index = () => {
                                  ID="5"/>
                 </View>
             </ScrollView>
-            <RoundButton />
+            <RoundButton
+                onPress={() => alert('Button Pressed')}
+                iconSource={require('../../assets/images/AddIcon.png')}
+            />
         </ViewWithBackground>
     )
 }
