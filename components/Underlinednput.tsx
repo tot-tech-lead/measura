@@ -1,16 +1,19 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, TextInput, StyleSheet, Animated } from "react-native";
+import {useEffect, useRef, useState} from "react";
+import {Animated, StyleSheet, TextInput, View} from "react-native";
 import Txt from "./Text";
 
-// до inputType обирати такі значення (default, numeric, decimal-pad)
-//                               (простий текст, цілі числа, десяткові числа)
+type Props = {
+    value: string,
+    setValue: (value: string) => void,
+    label: string,
+    inputType: "default" | "numeric" | "decimal-pad"
+}
 
-export default function InputField({ value, setValue, label, inputType }) {
+export default function UnderlinedInput({value, setValue, label, inputType}: Props) {
     const [isFocused, setIsFocused] = useState(false);
     const borderColorAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-
         Animated.timing(borderColorAnim, {
             toValue: isFocused ? 1 : 0,
             duration: 60,
@@ -37,7 +40,7 @@ export default function InputField({ value, setValue, label, inputType }) {
             >
                 {label}
             </Txt>
-            <Animated.View style={{ borderBottomColor, borderBottomWidth: 1 }}>
+            <Animated.View style={{borderBottomColor, borderBottomWidth: 1}}>
                 <TextInput
                     style={styles.input}
                     onFocus={() => setIsFocused(true)}
