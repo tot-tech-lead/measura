@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, View, Image, TouchableOpacity } from 'react-native';
 
-export default function RoundedInput({ placeholder, onIconPress, iconSource }) {
-    const [value, setValue] = useState('');
-
+export default function RoundedInput({
+                                         value,
+                                         setValue,
+                                         placeholder,
+                                         onIconPress,
+                                         iconSource,
+                                     }) {
     return (
         <View style={styles.container}>
             <TextInput
