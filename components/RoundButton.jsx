@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 16,
-    right: 16,
+    bottom: 20,
+    right: 20,
     // Тутка тіні на IOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
