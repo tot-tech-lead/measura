@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Image, TouchableOpacity } from 'react-native';
 
 export default function RoundedInput({ placeholder, onIconPress, iconSource }) {
+    const [value, setValue] = useState('');
+
     return (
         <View style={styles.container}>
             <TextInput
                 placeholder={placeholder}
+                value={value}
+                onChangeText={setValue}
                 style={styles.input}
             />
 
-            <TouchableOpacity onPress={onIconPress} style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => onIconPress(value)} style={styles.iconContainer}>
                 <Image source={iconSource} style={styles.icon} />
             </TouchableOpacity>
-
         </View>
     );
 }
@@ -39,7 +42,6 @@ const styles = StyleSheet.create({
         padding: 5,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     icon: {
         width: 28,
