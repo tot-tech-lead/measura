@@ -14,11 +14,11 @@ const fonts = [
     'GeologicaBlack',
 ]
 
-export default function Txt({children, style}) {
+export default function Txt({children, style, ...props}) {
     let font = fonts[style?.fontWeight ? Math.floor(Number(style.fontWeight) / 100) - 1 : 3];
 
     return (
-        <Text style={[
+        <Text {...{...props}} style={[
             {fontFamily: font}, style, {fontWeight: "auto"}
         ]}>
             {children}
