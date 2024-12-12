@@ -120,8 +120,6 @@ const styles = StyleSheet.create({
         color: "#3F3F3F",
         fontSize: 18,
         fontWeight: "600",
-        textOverflow: "ellipsis",
-
     },
     text: {
         color: "rgba(63, 63, 63, 0.5)",
