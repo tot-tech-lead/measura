@@ -1,3 +1,5 @@
+import {StyleSheet} from "react-native";
+
 import Txt from "../components/Text";
 
 export default function Headline({children}) {
