@@ -3,6 +3,9 @@ import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
+import {Provider} from "react-redux";
+import {PersistGate} from "redux-persist/integration/react";
+import {persistor, store} from "../store";
 
 
 SplashScreen.preventAutoHideAsync();
@@ -32,12 +35,14 @@ export default function RootLayout() {
     }
 
     return (
-        <>
-            <Stack>
-                <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-                <Stack.Screen name="+not-found" options={{headerShown: false}}/>
-            </Stack>
-            <StatusBar style="dark" animated={true} backgroundColor="transparent" />
-        </>
+        <Provider store={store}>
+            <PersistGate persistor={persistor} loading={null}>
+                <Stack>
+                    <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+                    <Stack.Screen name="+not-found" options={{headerShown: false}}/>
+                </Stack>
+                <StatusBar style="dark" animated={true} backgroundColor="transparent"/>
+            </PersistGate>
+        </Provider>
     );
 }
