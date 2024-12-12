@@ -5,6 +5,7 @@ import ViewWithBackground from "../../components/ViewWithBackground";
 import RoundedInput from "../../components/RoundedInput";
 import Headline from "../../components/Headline";
 import ProjectCard from "../../components/ProjectCard";
+import RoundButton from "../../components/RoundButton";
 
 
 const Index = () => {
@@ -43,13 +44,13 @@ const Index = () => {
                                  ID="5"/>
                 </View>
             </ScrollView>
+            <RoundButton />
         </ViewWithBackground>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-
         flex: 1,
         justifyContent: 'flex-start',
         flexDirection: "column",
