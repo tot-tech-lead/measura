@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, View, Image } from 'react-native';
 const RoundButton = ({ onPress, iconSource, size = 24, backgroundColor = '#333333' }) => {
     return (
         <TouchableOpacity style={[styles.button, { backgroundColor }]} onPress={onPress}>
-            <Image source={iconSource} style={{ width: size, height: size, resizeMode: 'contain' }} />
+            <Image source={iconSource} style={{ width: size, height: size, resizeMode: 'contain' }} size={20} />
         </TouchableOpacity>
     );
 };
