@@ -12,7 +12,7 @@ const RoundButton = ({ onPress, icon = 'add', size = 24, color = '#fff' }) => {
 
 const styles = StyleSheet.create({
   button: {
-    zindex: 1,
+    zIndex: 10000,
     backgroundColor: '#333333',
     width: 50,
     height: 50,
