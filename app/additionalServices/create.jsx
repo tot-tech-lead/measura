@@ -23,7 +23,7 @@ export default function CreateService() {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedValue, setSelectedValue] = useState("");
 
-    const options = ["м", "м^2", "м^3", "шт"]
+    const options = ["м^2", "одиниці",]
 
     const handleSelect = (value) => {
         setSelectedValue(value);
@@ -38,7 +38,7 @@ export default function CreateService() {
                 <UnderlinedInput label="Вартість" inputType="numeric" />
                 <View style={styles.inputWithIcon}>
                     <UnderlinedInput
-                        label="Кількість"
+                        label="Тип"
                         inputType="default"
                         value={selectedValue}
                         setValue={setSelectedValue}
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
     iconContainer: {
         position: "absolute",
         right: 10,
-        paddingVertical: 5,
     },
     icon: {
         resizeMode: "contain",
