@@ -3,7 +3,7 @@ import {useCallback, useState} from "react";
 import {useRouter} from "expo-router";
 import {useDispatch} from "react-redux";
 
-import ViewWithBackground from "../../components/ViewWithBackground";
+import ViewWithDoubleBackground from "../../components/ViewWithDoubleBackground";
 import Headline from "../../components/Headline";
 import Txt from "../../components/Text";
 import UnderlinedInput from "../../components/UnderlinedInput";
@@ -82,7 +82,7 @@ export default function CreateService() {
     }, [conditions, price])
 
     return (
-        <ViewWithBackground>
+        <ViewWithDoubleBackground>
             <ScrollView contentContainerStyle={styles.container}>
                 <Headline>Нова послуга</Headline>
                 <View style={styles.formContainer}>
@@ -130,7 +130,7 @@ export default function CreateService() {
                     Створити
                 </DarkButton>
             </View>
-        </ViewWithBackground>
+        </ViewWithDoubleBackground>
     )
 }
 
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 0,
         flexDirection: "row",
-        gap: 15
+        gap: 15,
+        zIndex: 1
     },
 });
