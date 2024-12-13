@@ -12,7 +12,7 @@ export default function Services() {
     return (
         <ViewWithDoubleBackground>
             <ScrollView contentContainerStyle={styles.container}>
-                <Headline>Additional Services</Headline>
+                <Headline>Додаткові послуги</Headline>
             </ScrollView>
             <RoundButton iconSource={require("../../assets/images/AddIcon.png")}
                          onPress={() => router.push("/additionalServices/create")}
