@@ -10,13 +10,13 @@ const Settings = () => {
         <ViewWithBackground style={styles.container}>
             <Headline>Налаштування</Headline>
             <View style={styles.linksContainer}>
-                <Link href="/" style={styles.linkText}>
+                <Link href="/services" style={styles.linkText}>
                     <Txt>Мої послуги</Txt>
                 </Link>
-                <Link href="/" style={styles.linkText}>
+                <Link href="/additionalServices" style={styles.linkText}>
                     <Txt>Додаткові послуги</Txt>
                 </Link>
-                <Link href="/settings" style={styles.linkText}>
+                <Link href="/settings" style={styles.linkText} onPress={() => alert("У розробці")}>
                     <Txt>Загальні налаштування</Txt>
                 </Link>
             </View>

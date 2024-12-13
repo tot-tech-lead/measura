@@ -39,6 +39,8 @@ export default function RootLayout() {
             <PersistGate persistor={persistor} loading={null}>
                 <Stack>
                     <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+                    <Stack.Screen name="services" options={{headerShown: false}}/>
+                    <Stack.Screen name="additionalServices" options={{headerShown: false}}/>
                     <Stack.Screen name="+not-found" options={{headerShown: false}}/>
                 </Stack>
                 <StatusBar style="dark" animated={true} backgroundColor="transparent"/>
