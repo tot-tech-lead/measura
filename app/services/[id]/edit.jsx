@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: "column",
         gap: 25,
+        zIndex: 1,
     },
     formContainer: {
         width: "100%",
