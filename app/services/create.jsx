@@ -1,19 +1,21 @@
 import {Dimensions, Image, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {useCallback, useState} from "react";
 import {useRouter} from "expo-router";
+import {useDispatch} from "react-redux";
 
-import ViewWithBackground from "../../components/ViewWithBackground";
+import ViewWithDoubleBackground from "../../components/ViewWithDoubleBackground";
 import Headline from "../../components/Headline";
 import Txt from "../../components/Text";
 import UnderlinedInput from "../../components/UnderlinedInput";
 import DarkButton from "../../components/DarkButton";
-
+import {addNew} from "../../store/services/services";
 
 export default function CreateService() {
     let router = useRouter();
+    let dispatch = useDispatch();
 
     let [conditions, setConditions] = useState([""]);
-    let [price, setPrice] = useState(0);
+    let [price, setPrice] = useState("");
 
     const addCondition = useCallback(() => {
         if (conditions.length >= 5) {
@@ -47,17 +49,48 @@ export default function CreateService() {
         }
     }, [conditions, setConditions]);
 
+    const saveHandler = useCallback(() => {
+        let conditionsCopy = JSON.parse(JSON.stringify(conditions));
+        let localPrice = Number(price);
 
-    console.log(conditions)
+        let conditionsValidationPattern = conditionsCopy
+            .map((item, index) => String(item).length <= 2 ? index : false)
+            .filter(item => typeof item === "number")
+
+
+        if (conditionsValidationPattern.length > 0) {
+            alert(`Перевірте чи заповнені умови у наступних полях: ${
+                conditionsValidationPattern.map(item => item + 1).join(",")
+            } (кожна умова повинна містити більше ніж 2 символи)`)
+            return;
+        }
+
+        if (Number.isNaN(localPrice)) {
+            alert(`Халепа!\nСхоже що вказана вартість не є числом. Перевірте ще раз і спробуйте знову`)
+            return;
+        }
+
+        let newService = {
+            price: localPrice,
+            conditions: conditionsCopy,
+        }
+
+        dispatch(addNew(newService));
+        alert("Послугу створено!")
+
+        router.push("/services")
+    }, [conditions, price])
+
     return (
-        <ViewWithBackground>
+        <ViewWithDoubleBackground>
             <ScrollView contentContainerStyle={styles.container}>
                 <Headline>Нова послуга</Headline>
                 <View style={styles.formContainer}>
                     <View style={styles.conditions}>
                         <Txt style={styles.conditionsHeadline}>Умови:</Txt>
                         <TouchableOpacity style={styles.conditionsAddBtn} onPress={addCondition}>
-                            <Image style={styles.conditionsAddIcon}  source={require("../../assets/images/AddIcon.png")}/>
+                            <Image style={styles.conditionsAddIcon}
+                                   source={require("../../assets/images/AddIcon.png")}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.conditionsInputs}>
@@ -71,14 +104,15 @@ export default function CreateService() {
                                     />
                                     <TouchableOpacity style={styles.conditionsInputRemove}
                                                       onPress={removeCondition(index)}>
-                                        <Image style={styles.conditionsInputRemoveIcon} source={require("../../assets/images/remove-icon.png")}/>
+                                        <Image style={styles.conditionsInputRemoveIcon}
+                                               source={require("../../assets/images/remove-icon.png")}/>
                                     </TouchableOpacity>
                                 </View>
                             )
                         }
                     </View>
                     <UnderlinedInput value={price}
-                                     setValue={(v) => setPrice(Number(v))}
+                                     setValue={(v) => setPrice(v)}
                                      label="Вартість"
                                      inputType="decimal-pad"
                     />
@@ -91,12 +125,12 @@ export default function CreateService() {
                     Назад
                 </DarkButton>
                 <DarkButton style={{width: (Dimensions.get("window").width / 2) - 27.5}}
-                            onPress={() => router.navigate("/services")}
+                            onPress={saveHandler}
                 >
                     Створити
                 </DarkButton>
             </View>
-        </ViewWithBackground>
+        </ViewWithDoubleBackground>
     )
 }
 
@@ -110,6 +144,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: "column",
         gap: 25,
+        zIndex: 1,
     },
     formContainer: {
         width: "100%",
@@ -171,6 +206,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 0,
         flexDirection: "row",
-        gap: 15
+        gap: 15,
+        zIndex: 1
     },
 });

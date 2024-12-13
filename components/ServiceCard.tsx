@@ -1,6 +1,6 @@
 import React from "react";
-import { View, FlatList, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Link} from "expo-router";
 
 type Item = {
     id: string;
@@ -12,14 +12,13 @@ type Props = {
     list: Item[];
 };
 
-export default function ServiceCard({ list }: Props) {
+export default function ServiceCard({list}: Props) {
     return (
         <View style={styles.container}>
             <FlatList
                 data={list}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-
+                renderItem={({item}) => (
                     <View style={styles.card}>
                         <View style={styles.cardTextContainer}>
                             {item.conditions.map((condition, idx) => (
@@ -31,14 +30,14 @@ export default function ServiceCard({ list }: Props) {
                         </View>
 
 
-                        <Link href={`/services/${item.id}/edit`}>
-                            <TouchableOpacity>
-                                <Image source={require("../assets/images/ServiceCardIcon.png")} style={styles.icon} />
-                            </TouchableOpacity>
-                        </Link>
+                        <TouchableOpacity>
+                            <Link href={`/services/${item.id}/edit`}>
+                                <Image source={require("../assets/images/ServiceCardIcon.png")} style={styles.icon}/>
+                            </Link>
+                        </TouchableOpacity>
                     </View>
                 )}
-                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                ItemSeparatorComponent={() => <View style={styles.separator}/>}
             />
         </View>
     );
@@ -50,6 +49,7 @@ const styles = StyleSheet.create({
         padding: 16,
     },
     card: {
+        width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         borderRadius: 10,
         shadowColor: "rgba(0, 0, 0, 0.15)",
-        shadowOffset: { width: 0, height: 4 },
+        shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.4,
         shadowRadius: 4,
         elevation: 5,

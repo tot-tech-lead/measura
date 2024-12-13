@@ -2,13 +2,13 @@ import {combineReducers} from "@reduxjs/toolkit";
 import {documentDirectory, EncodingType} from "expo-file-system";
 import {createExpoFileSystemStorage} from "redux-persist-expo-file-system-storage";
 
-import CounterReducer from "./counter/counter";
+import ServicesReducer from "./services/services";
 import {persistReducer} from "redux-persist";
 
 console.log('Document Directory:', documentDirectory);
 
 export const expoFileSystemStorage = createExpoFileSystemStorage({
-    storagePath: `${documentDirectory}customPathName/`,
+    storagePath: `${documentDirectory}data/`,
     encoding: EncodingType.UTF8,
     debug: true,
 });
@@ -33,7 +33,7 @@ const combinePersistReducers = (keys) =>
 
 const reducers = combineReducers({
     ...combinePersistReducers({
-        count: CounterReducer,
+        services: ServicesReducer,
     }),
 });
 
