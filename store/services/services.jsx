@@ -18,12 +18,16 @@ const serviceSlice = createSlice({
             });
         },
         deleteOne: (state, action) => {
-            return state.services.filter(item => item.id !== action.payload);
+            return {
+                services: state.services.filter(item => item.id !== action.payload),
+            };
         },
         editOne: (state, action) => {
-            return state.services.map(item =>
-                item.id === action.payload.id ? {...item, ...action.payload} : item
-            );
+            return {
+                services: state.services.map(item =>
+                    item.id === action.payload.id ? {...item, ...action.payload} : item
+                )
+            };
         },
     },
 });

@@ -13,7 +13,6 @@ export default function Services() {
     let router = useRouter();
     let services = useSelector(state => state.services.services);
 
-    console.log("Services", services);
 
     return (
         <ViewWithDoubleBackground>
@@ -37,6 +36,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        gap: 30
+        gap: 30,
+        zIndex: 1
     }
 })

@@ -15,7 +15,7 @@ export default function CreateService() {
     let dispatch = useDispatch();
 
     let [conditions, setConditions] = useState([""]);
-    let [price, setPrice] = useState(0);
+    let [price, setPrice] = useState("");
 
     const addCondition = useCallback(() => {
         if (conditions.length >= 5) {
@@ -112,7 +112,7 @@ export default function CreateService() {
                         }
                     </View>
                     <UnderlinedInput value={price}
-                                     setValue={(v) => setPrice(Number(v))}
+                                     setValue={(v) => setPrice(v)}
                                      label="Вартість"
                                      inputType="decimal-pad"
                     />
