@@ -5,7 +5,7 @@ import {useRouter} from "expo-router";
 import ViewWithBackground from "../../components/ViewWithBackground";
 import Headline from "../../components/Headline";
 import Txt from "../../components/Text";
-import UnderlinedInput from "../../components/Underlinednput";
+import UnderlinedInput from "../../components/UnderlinedInput";
 import DarkButton from "../../components/DarkButton";
 
 
