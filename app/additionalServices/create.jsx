@@ -69,7 +69,7 @@ export default function CreateService() {
                     }}
                     onPress={() => router.navigate("/")}
                 >
-                    Ок
+                    Додати
                 </DarkButton>
             </View>
 
