@@ -20,28 +20,44 @@ import { useRouter } from "expo-router";
 export default function CreateService() {
     const router = useRouter();
 
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedValue, setSelectedValue] = useState("");
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [type, setType] = useState("");
 
-    const options = ["м^2", "одиниці",]
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const options = ["м^2", "одиниці"]
 
     const handleSelect = (value) => {
-        setSelectedValue(value);
+        setType(value);
         setModalVisible(false);
+    };
+    const handleSubmit = () => {
+        //буде логіка якась
     };
 
     return (
         <ViewWithBackground style={styles.fullScreen}>
             <ScrollView contentContainerStyle={styles.container}>
                 <Headline>Створити додаткову послугу</Headline>
-                <UnderlinedInput label="Назва" inputType="default" />
-                <UnderlinedInput label="Вартість" inputType="numeric" />
+                <UnderlinedInput
+                    label="Назва"
+                    inputType="default"
+                    value={name}
+                    setValue={setName}
+                />
+                <UnderlinedInput
+                    label="Вартість"
+                    inputType="numeric"
+                    value={price}
+                    setValue={setPrice}
+                />
                 <View style={styles.inputWithIcon}>
                     <UnderlinedInput
                         label="Тип"
                         inputType="default"
-                        value={selectedValue}
-                        setValue={setSelectedValue}
+                        value={type}
+                        setValue={setType}
                     />
                     <TouchableOpacity
                         style={styles.iconContainer}
@@ -67,7 +83,7 @@ export default function CreateService() {
                     style={{
                         width: Dimensions.get("window").width / 2 - 27.5,
                     }}
-                    onPress={() => router.navigate("/")}
+                    onPress={handleSubmit}
                 >
                     Ок
                 </DarkButton>
