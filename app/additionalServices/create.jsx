@@ -85,7 +85,7 @@ export default function CreateService() {
                     }}
                     onPress={handleSubmit}
                 >
-                    Ок
+                    Додати
                 </DarkButton>
             </View>
 
