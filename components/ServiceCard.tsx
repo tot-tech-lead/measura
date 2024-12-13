@@ -1,7 +1,6 @@
 import React from "react";
 import { View, FlatList, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
-import EditIcon from "../assets/images/ServiceCardIcon.png";
 
 type Item = {
     id: string;
@@ -34,7 +33,7 @@ export default function ServiceCard({ list }: Props) {
 
                         <Link href={`/services/${item.id}/edit`}>
                             <TouchableOpacity>
-                                <Image source={EditIcon} style={styles.icon} />
+                                <Image source={require("../assets/images/ServiceCardIcon.png")} style={styles.icon} />
                             </TouchableOpacity>
                         </Link>
                     </View>
