@@ -75,7 +75,7 @@ export default function CreateService() {
                     style={{
                         width: Dimensions.get("window").width / 2 - 27.5,
                     }}
-                    onPress={() => router.navigate("/")}
+                    onPress={() => router.navigate("/additionalServices")}
                 >
                     Скасувати
                 </DarkButton>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     iconContainer: {
         position: "absolute",
         right: 10,
+        paddingVertical: 20,
     },
     icon: {
         resizeMode: "contain",
