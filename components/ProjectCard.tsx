@@ -1,6 +1,6 @@
 import {Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Txt from "./Text";
-import {Link} from "expo-router";
+import {useRouter} from "expo-router";
 
 type Props = {
     image?: ImageSourcePropType;
@@ -11,6 +11,9 @@ type Props = {
 }
 
 function ProjectCard({image, name, address, price, ID}: Props) {
+    let router = useRouter();
+
+
     return (
         <View style={styles.card}>
             <Image source={image || require("../assets/images/card/default-cover.png")}
@@ -36,36 +39,30 @@ function ProjectCard({image, name, address, price, ID}: Props) {
                     </Txt>
                 </View>
                 <View style={styles.actions}>
-                    <Link href="/">
-                        <TouchableOpacity style={styles.actionItem}>
-                            <Image height={24}
-                                   width={24}
-                                   resizeMode="contain"
-                                   style={styles.actionItemIcon}
-                                   source={require("../assets/images/card/view.png")}
-                            />
-                        </TouchableOpacity>
-                    </Link>
-                    <Link href="/">
-                        <TouchableOpacity style={styles.actionItem}>
-                            <Image height={24}
-                                   width={24}
-                                   resizeMode="contain"
-                                   style={styles.actionItemIcon}
-                                   source={require("../assets/images/card/bill.png")}
-                            />
-                        </TouchableOpacity>
-                    </Link>
-                    <Link href="/">
-                        <TouchableOpacity style={styles.actionItem}>
-                            <Image height={24}
-                                   width={24}
-                                   resizeMode="contain"
-                                   style={styles.actionItemIcon}
-                                   source={require("../assets/images/card/edit.png")}
-                            />
-                        </TouchableOpacity>
-                    </Link>
+                    <TouchableOpacity onPress={() => router.navigate("/")} style={styles.actionItem}>
+                        <Image height={24}
+                               width={24}
+                               resizeMode="contain"
+                               style={styles.actionItemIcon}
+                               source={require("../assets/images/card/view.png")}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.navigate("/")} style={styles.actionItem}>
+                        <Image height={24}
+                               width={24}
+                               resizeMode="contain"
+                               style={styles.actionItemIcon}
+                               source={require("../assets/images/card/bill.png")}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => router.navigate("/")} style={styles.actionItem}>
+                        <Image height={24}
+                               width={24}
+                               resizeMode="contain"
+                               style={styles.actionItemIcon}
+                               source={require("../assets/images/card/edit.png")}
+                        />
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => alert("In development")} style={styles.actionItem}>
                         <Image height={24}
                                width={24}
@@ -140,7 +137,7 @@ const styles = StyleSheet.create({
         width: 35,
         height: 35,
         backgroundColor: "#333333",
-        borderRadius: 30,
+        borderRadius: 17,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
