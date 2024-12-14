@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         paddingVertical: 5,
         color: "#000",
+        zIndex: 1,
     },
 });

@@ -12,13 +12,13 @@ function ViewWithDoubleBackground({children, ...props}) {
                    resizeMode="cover"
                    style={styles.background}
             />
-            {children}
             <Image source={blobImage}
                    width={Dimensions.get("window").width * 2}
                    height={Math.round(Dimensions.get("window").width * 0.671) * 2}
                    resizeMode="cover"
                    style={styles.backgroundBottom}
             />
+            {children}
         </View>
     );
 }
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         left: "-50%",
         width: Dimensions.get("window").width * 2,
         height: Math.round(Dimensions.get("window").width * 0.671) * 2,
+        zIndex: 0
     },
     backgroundBottom: {
         position: "absolute",
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get("window").width * 2,
         height: Math.round(Dimensions.get("window").width * 0.671) * 2,
         transform: "rotate(180deg)",
+        zIndex: 0
     },
 });
 
