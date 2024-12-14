@@ -1,6 +1,8 @@
 import React from "react";
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {useDispatch} from "react-redux";
 import {Link} from "expo-router";
+import {deleteOne} from "../store/services/services";
 
 type Item = {
     id: string;
@@ -13,6 +15,13 @@ type Props = {
 };
 
 export default function ServiceCard({list}: Props) {
+    const dispatch = useDispatch();
+
+    const handleDelete = (id: string) => {
+        dispatch(deleteOne(id));
+        alert("Послугу видалено!");
+    };
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -29,15 +38,28 @@ export default function ServiceCard({list}: Props) {
                             <Text style={styles.text}>{item.price}₴</Text>
                         </View>
 
+                        <View style={styles.iconContainer}>
 
-                        <TouchableOpacity>
-                            <Link href={`/services/${item.id}/edit`}>
-                                <Image source={require("../assets/images/ServiceCardIcon.png")} style={styles.icon}/>
-                            </Link>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                                <Image
+                                    source={require("../assets/images/DeleteServiceCardIcon.png")}
+                                    style={styles.icon}
+                                />
+                            </TouchableOpacity>
+
+
+                            <TouchableOpacity>
+                                <Link href={`/services/${item.id}/edit`}>
+                                    <Image
+                                        source={require("../assets/images/EditServiceCardIcon.png")}
+                                        style={styles.icon}
+                                    />
+                                </Link>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 )}
-                ItemSeparatorComponent={() => <View style={styles.separator}/>}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
             />
         </View>
     );
@@ -76,6 +98,11 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         fontFamily: "GeologicaRegular",
         fontStyle: "normal",
+    },
+    iconContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 10,
     },
     icon: {
         width: 25,
