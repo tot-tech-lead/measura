@@ -3,6 +3,7 @@ import {documentDirectory, EncodingType} from "expo-file-system";
 import {createExpoFileSystemStorage} from "redux-persist-expo-file-system-storage";
 
 import ServicesReducer from "./services/services";
+import AdditionalReducer from "./additionalServices/additionalServices";
 import {persistReducer} from "redux-persist";
 
 console.log('Document Directory:', documentDirectory);
@@ -34,6 +35,7 @@ const combinePersistReducers = (keys) =>
 const reducers = combineReducers({
     ...combinePersistReducers({
         services: ServicesReducer,
+        additionalServices: AdditionalReducer,
     }),
 });
 

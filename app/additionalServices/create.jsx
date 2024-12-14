@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import {
-    ScrollView,
-    StyleSheet,
-    View,
-    Image,
-    TouchableOpacity,
-    Dimensions,
-    Modal,
-    Text,
-    FlatList,
-} from "react-native";
+import {useMemo, useState} from "react";
+import {useDispatch} from "react-redux";
+import {Dimensions, FlatList, Image, Modal, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 
 import ViewWithBackground from "../../components/ViewWithBackground";
 import Headline from "../../components/Headline";
 import DarkButton from "../../components/DarkButton";
 import UnderlinedInput from "../../components/UnderlinedInput";
-import { useRouter } from "expo-router";
+import {useRouter} from "expo-router";
+import Txt from "../../components/Text";
+
+import {addNew} from "../../store/additionalServices/additionalServices";
+
+const encodeType = {
+    "м^2": "forArea",
+    "одиниці": "once"
+}
 
 export default function CreateService() {
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -26,14 +26,47 @@ export default function CreateService() {
 
     const [isModalVisible, setModalVisible] = useState(false);
 
-    const options = ["м^2", "одиниці"]
+    const options = useMemo(() => Object.keys(encodeType), []);
 
     const handleSelect = (value) => {
         setType(value);
         setModalVisible(false);
     };
+
     const handleSubmit = () => {
-        //буде логіка якась
+        let nameCopy = String(name);
+        let localPrice = Number(price);
+        let typeCopy = String(type);
+
+        if (Number.isNaN(localPrice)) {
+            alert(`Халепа!\nСхоже що вказана вартість не є числом. Перевірте ще раз і спробуйте знову`)
+            return;
+        }
+
+        if (nameCopy.length <= 2) {
+            alert(`Халепа!\nНазва послуги повинно містити більше ніж 2 символи`)
+            return;
+        }
+
+        if (typeCopy.length <= 2) {
+            alert(`Халепа!\nЗаповніть поле "Платіж за"`)
+            return;
+        }
+
+        if (!encodeType[typeCopy.trim()]) {
+            alert(`Помилка!\nОберіть ще раз у полі "Платіж за"`)
+        }
+
+        let newAdditionalService = {
+            name: nameCopy,
+            type: encodeType[typeCopy.trim()],
+            price: localPrice
+        }
+
+        dispatch(addNew(newAdditionalService));
+        alert("Додаткову послугу створено!")
+
+        router.navigate("/additionalServices")
     };
 
     return (
@@ -54,10 +87,10 @@ export default function CreateService() {
                 />
                 <View style={styles.inputWithIcon}>
                     <UnderlinedInput
-                        label="Тип"
+                        label="Платіж за ..."
                         inputType="default"
                         value={type}
-                        setValue={setType}
+                        setValue={() => alert("Оберіть зі списку")}
                     />
                     <TouchableOpacity
                         style={styles.iconContainer}
@@ -96,17 +129,18 @@ export default function CreateService() {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
+                        <Headline>Оберіть зі списку</Headline>
                         <FlatList
                             data={options}
                             keyExtractor={(item) => item}
-                            renderItem={({ item }) => (
+                            renderItem={({item}) => (
                                 <TouchableOpacity
                                     style={styles.option}
                                     onPress={() => handleSelect(item)}
                                 >
-                                    <Text style={styles.optionText}>
+                                    <Txt style={styles.optionText}>
                                         {item}
-                                    </Text>
+                                    </Txt>
                                 </TouchableOpacity>
                             )}
                         />
@@ -114,7 +148,7 @@ export default function CreateService() {
                             style={styles.closeButton}
                             onPress={() => setModalVisible(false)}
                         >
-                            <Text style={styles.closeButtonText}>Закрити</Text>
+                            <Txt style={styles.closeButtonText}>Скасувати</Txt>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -150,7 +184,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         padding: 20,
-        paddingBottom: 40,
+        paddingBottom: 20,
         backgroundColor: "white",
     },
     modalOverlay: {
@@ -176,13 +210,15 @@ const styles = StyleSheet.create({
         color: "#333",
     },
     closeButton: {
+        width: "100%",
         marginTop: 20,
-        backgroundColor: "#ccc",
+        backgroundColor: "#333333",
         padding: 10,
         borderRadius: 5,
     },
     closeButtonText: {
         fontSize: 16,
         color: "#fff",
+        textAlign: "center"
     },
 });

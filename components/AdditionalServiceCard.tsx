@@ -1,6 +1,8 @@
-import React from "react";
 import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Link} from "expo-router";
+import {useDispatch} from "react-redux";
+
+import {deleteOne} from "../store/additionalServices/additionalServices";
 
 type Item = {
     id: string;
@@ -14,6 +16,8 @@ type Props = {
 };
 
 export default function AdditionalServiceCard({list}: Props) {
+    let dispatch = useDispatch();
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -32,7 +36,10 @@ export default function AdditionalServiceCard({list}: Props) {
 
                         <View style={styles.iconContainer}>
 
-                            <TouchableOpacity onPress={() => alert("Незабаром буде функція видалення")}>
+                            <TouchableOpacity onPress={() => {
+                                dispatch(deleteOne(item.id))
+                                alert("Послугу видалено")
+                            }}>
                                 <Image
                                     source={require("../assets/images/DeleteServiceCardIcon.png")}
                                     style={styles.icon}
