@@ -13,12 +13,15 @@ export default function Services() {
     let router = useRouter();
     let services = useSelector(state => state.services.services);
 
-
     return (
         <ViewWithDoubleBackground>
             <View style={styles.container}>
                 <Headline>Мої послуги</Headline>
-                <ServiceCard list={services} />
+                {services.length === 0 ? (
+                    <Txt style={styles.ifEmpty}>Тут поки порожньо</Txt>
+                ) : (
+                    <ServiceCard list={services} />
+                )}
             </View>
             <RoundButton iconSource={require("../../assets/images/AddIcon.png")}
                          onPress={() => router.push("/services/create")}
@@ -38,5 +41,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         gap: 30,
         zIndex: 1
+    },
+
+    ifEmpty: {
+        color: "#333",
+        fontStyle: "normal",
+        fontSize: 16,
+        fontWeight: 500,
+        fontFamily: "GeologicaMedium",
     }
 })
