@@ -52,10 +52,12 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         paddingTop: 50,
+        gap: 25,
         flex: 1,
     },
     ifEmpty: {
         fontSize: 16,
+        textAlign: "center",
         justifyContent: "center",
         alignItems: "center",
     },
