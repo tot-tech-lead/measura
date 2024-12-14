@@ -48,7 +48,7 @@ export default function AdditionalServiceCard({list}: Props) {
 
 
                             <TouchableOpacity>
-                                <Link href={`/services/${item.id}/edit`}>
+                                <Link href={`/additionalServices/${item.id}/edit`}>
                                     <Image
                                         source={require("../assets/images/EditServiceCardIcon.png")}
                                         style={styles.icon}
