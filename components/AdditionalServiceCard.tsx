@@ -30,11 +30,25 @@ export default function AdditionalServiceCard({list}: Props) {
                         </View>
 
 
-                        <TouchableOpacity>
-                            <Link href={`/additionalServices/${item.id}/edit`}>
-                                <Image source={require("../assets/images/ServiceCardIcon.png")} style={styles.icon}/>
-                            </Link>
-                        </TouchableOpacity>
+                        <View style={styles.iconContainer}>
+
+                            <TouchableOpacity onPress={() => alert("Незабаром буде функція видалення")}>
+                                <Image
+                                    source={require("../assets/images/DeleteServiceCardIcon.png")}
+                                    style={styles.icon}
+                                />
+                            </TouchableOpacity>
+
+
+                            <TouchableOpacity>
+                                <Link href={`/services/${item.id}/edit`}>
+                                    <Image
+                                        source={require("../assets/images/EditServiceCardIcon.png")}
+                                        style={styles.icon}
+                                    />
+                                </Link>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 )}
                 ItemSeparatorComponent={() => <View style={styles.separator}/>}
@@ -77,6 +91,12 @@ const styles = StyleSheet.create({
         fontFamily: "GeologicaRegular",
         fontStyle: "normal",
     },
+    iconContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 10,
+    },
+
     icon: {
         width: 25,
         height: 25,
