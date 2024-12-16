@@ -1,62 +1,86 @@
 import { StyleSheet, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-
 import ViewWithDoubleBackground from "../../../components/ViewWithDoubleBackground";
 import Headline from "../../../components/Headline";
 import DarkButton from "../../../components/DarkButton";
 import Txt from "../../../components/Text";
 import { router } from "expo-router";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import ViewShot from "react-native-view-shot";
+import * as Print from "expo-print";
+
+import React, { useRef } from "react";
+
 export default function ViewProject() {
-    let { id } = useLocalSearchParams();
+    const { id } = useLocalSearchParams();
+    const viewShotRef = useRef();
+
+    const saveAsPNG = async () => {
+        try {
+            const uri = await viewShotRef.current.capture();
+            const fileUri = `${FileSystem.documentDirectory}estimate.png`;
+
+            await FileSystem.copyAsync({
+                from: uri,
+                to: fileUri,
+            });
+
+            await Sharing.shareAsync(fileUri);
+        } catch (error) {
+            console.error("Помилка збереження PNG:", error);
+        }
+    };
+
+    const saveAsPDF = async () => {
+        try {
+            const uri = await viewShotRef.current.capture();
+            const htmlContent = `
+                <html>
+                    <body style="display: flex; justify-content: center; align-items: center;">
+                        <img src="${uri}" style="width: 100%; height: auto;" />
+                    </body>
+                </html>
+            `;
+            const { uri: pdfUri } = await Print.printToFileAsync({ html: htmlContent });
+            await Sharing.shareAsync(pdfUri);
+        } catch (error) {
+            console.error("Помилка збереження PDF:", error);
+        }
+    };
 
     return (
         <ViewWithDoubleBackground style={styles.container}>
-            <Headline>Проєкт {id}</Headline>
-            <View style={styles.budgetContainer}>
-                <Txt style={styles.budgetHeadline}>Кошторис</Txt>
-                <View style={styles.lineItem}>
-                    <Txt style={styles.leftText}>Вартість роботи</Txt>
-                    <Txt style={styles.rightText}>20000₴</Txt>
+            <ViewShot ref={viewShotRef} options={{ format: "png", quality: 1 }}>
+                <Headline>Проєкт {id}</Headline>
+                <View style={styles.budgetContainer}>
+                    <Txt style={styles.budgetHeadline}>Кошторис</Txt>
+                    <View style={styles.lineItem}>
+                        <Txt style={styles.leftText}>Вартість роботи</Txt>
+                        <Txt style={styles.rightText}>20000₴</Txt>
+                    </View>
+                    <View style={styles.lineItem}>
+                        <Txt style={styles.leftText}>Вартість клею</Txt>
+                        <Txt style={styles.rightText}>1070₴</Txt>
+                    </View>
+                    <View style={styles.lineItem}>
+                        <Txt style={styles.leftText}>Вартість плитки</Txt>
+                        <Txt style={styles.rightText}>21400₴</Txt>
+                    </View>
+                    <View style={styles.total}>
+                        <Txt style={styles.totalText}>Загальна вартість</Txt>
+                        <Txt style={styles.totalAmount}>42470₴</Txt>
+                    </View>
                 </View>
-                <View style={styles.lineItem}>
-                    <Txt style={styles.leftText}>Вартість клею</Txt>
-                    <Txt style={styles.rightText}>1070₴</Txt>
-                </View>
-                <View style={styles.lineItem}>
-                    <Txt style={styles.leftText}>Вартість плитки </Txt>
-                    <Txt style={styles.rightText}>21400₴</Txt>
-                </View>
-                <View style={styles.lineItem}>
-                    <Txt style={styles.leftText}>Загальна вартість матеріалів</Txt>
-                    <Txt style={styles.rightText}>22470₴</Txt>
-                </View>
-                <View style={styles.total}>
-                    <Txt style={styles.totalText}>Загальна вартість</Txt>
-                    <Txt style={styles.totalAmount}>42470₴</Txt>
-                </View>
-            </View>
-
+            </ViewShot>
             <View style={styles.buttonContainer}>
-                <DarkButton
-                    iconSource={require("../../../assets/images/pdfIcon.png")}
-                    iconPlacement="before"
-                    style={styles.button}
-                >
+                <DarkButton onPress={saveAsPDF} style={styles.button}>
                     Зберегти PDF
                 </DarkButton>
-                <DarkButton
-                    iconSource={require("../../../assets/images/jpgIcon.png")}
-                    iconPlacement="before"
-                    style={styles.button}
-                >
-                    Зберегти JPG
+                <DarkButton onPress={saveAsPNG} style={styles.button}>
+                    Зберегти PNG
                 </DarkButton>
-                <DarkButton
-                    iconSource={require("../../../assets/images/HouseIcon.png")}
-                    iconPlacement="before"
-                    style={styles.button}
-                    onPress={() => router.push("/")}
-                >
+                <DarkButton onPress={() => router.push("/")} style={styles.button}>
                     Додому
                 </DarkButton>
             </View>
@@ -87,7 +111,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 4,
         elevation: 4,
-        flexShrink: 1,
     },
     lineItem: {
         flexDirection: "row",
