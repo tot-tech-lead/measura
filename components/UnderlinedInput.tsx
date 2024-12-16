@@ -58,6 +58,7 @@ export default function UnderlinedInput({value, setValue, label, inputType}: Pro
 
 const styles = StyleSheet.create({
     container: {
+        width: "100%",
         display: "flex",
         flexDirection: "column",
     },

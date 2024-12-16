@@ -1,24 +1,15 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import {documentDirectory, EncodingType} from "expo-file-system";
-import {createExpoFileSystemStorage} from "redux-persist-expo-file-system-storage";
-
+import CustomFileSystemStorage from "./CustomFSStorage";
 import ServicesReducer from "./services/services";
 import AdditionalReducer from "./additionalServices/additionalServices";
+import ProjectsReducer from "./projects/projects";
 import {persistReducer} from "redux-persist";
-
-console.log('Document Directory:', documentDirectory);
-
-export const expoFileSystemStorage = createExpoFileSystemStorage({
-    storagePath: `${documentDirectory}data/`,
-    encoding: EncodingType.UTF8,
-    debug: true,
-});
 
 const persist = (key, reducer) =>
     persistReducer(
         {
             key,
-            storage: expoFileSystemStorage,
+            storage: CustomFileSystemStorage, // Use the custom storage
         },
         reducer
     );
@@ -36,6 +27,7 @@ const reducers = combineReducers({
     ...combinePersistReducers({
         services: ServicesReducer,
         additionalServices: AdditionalReducer,
+        projects: ProjectsReducer,
     }),
 });
 
