@@ -23,9 +23,9 @@ export default function StageBar({countOfStages, currentStage}: Props) {
     useEffect(() => {
         stages.forEach((stage, index) => {
             Animated.timing(animatedWidths[index], {
-                toValue: currentStage >= stage ? 1 : 0, // Animate between 0 and 1
-                duration: 300, // Duration of animation
-                useNativeDriver: false, // Can't animate width with native driver
+                toValue: currentStage >= stage ? 1 : 0,
+                duration: 300,
+                useNativeDriver: false,
             }).start();
         });
     }, [currentStage, stages]);

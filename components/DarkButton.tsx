@@ -46,7 +46,10 @@ let styles = StyleSheet.create({
     },
     btnText: {
         color: "#ffffff",
-        textAlign: 'center'
+        textAlign: 'center',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     icon: {
         position: "absolute",
