@@ -1,7 +1,7 @@
 import {Dimensions, ScrollView, StyleSheet, View} from "react-native";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import {useRouter} from "expo-router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import ViewWithDoubleBackground from "../../components/ViewWithDoubleBackground";
 import Stage1 from "../../components/projects/Stage1";
@@ -10,6 +10,7 @@ import Stage3 from "../../components/projects/Stage3";
 import DarkButton from "../../components/DarkButton";
 import StageBar from "../../components/projects/StageBar";
 import projectValidationSchema from "../../lib/validateProjectForm";
+import {addNew} from "../../store/projects/projects";
 
 function getIds(arr) {
     return arr.map(item => item.id);
@@ -17,11 +18,13 @@ function getIds(arr) {
 
 
 export default function CreateProject() {
-    let [stage, setStage] = useState(0);
-    let [data, setData] = useState({});
+    let dispatch = useDispatch();
+
     let router = useRouter();
     let serviceIDs = useSelector(state => state.services.services)
     let additionalServiceIDs = useSelector(state => state.additionalServices.additionalServices)
+    let [stage, setStage] = useState(0);
+    let [data, setData] = useState({});
 
     let validationSchema = useMemo(() => {
         return projectValidationSchema(getIds(serviceIDs), getIds(additionalServiceIDs))
@@ -51,7 +54,9 @@ export default function CreateProject() {
     let create = useCallback(async () => {
         try {
             const resultOfValidation = await validationSchema.validate(data);
-            console.log("Validation Passed:", resultOfValidation);
+            dispatch(addNew(resultOfValidation))
+            router.push("/")
+            alert("Новий проект створено!")
         } catch (validationError) {
             alert("- " + validationError.inner.join("\n- "))
         }

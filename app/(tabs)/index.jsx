@@ -7,6 +7,7 @@ import RoundedInput from "../../components/RoundedInput";
 import Headline from "../../components/Headline";
 import ProjectCard from "../../components/ProjectCard";
 import RoundButton from "../../components/RoundButton";
+import {useSelector} from "react-redux";
 
 
 const Index = () => {
