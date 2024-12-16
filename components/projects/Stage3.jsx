@@ -1,5 +1,5 @@
 import {FlatList, Image, Modal, StyleSheet, TouchableOpacity, View} from "react-native";
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 
 import Headline from "../../components/Headline";
@@ -11,23 +11,26 @@ import UnderlinedInput from "../UnderlinedInput";
 
 export default function Stage3({data, setProperty}) {
     const [isModalVisible, setModalVisible] = useState(false);
-    const [tarif, setTarif] = useState('');
     const services = useSelector((state) => state.services.services);
     const options = services.map(item => item.conditions.join(" + "))
 
     let additionalServices = useSelector(state => state.additionalServices.additionalServices);
-    let [selectedServices, setSelectedServices] = useState([])
+    let [selectedServices, setSelectedServices] = useState(data.services || [])
 
     let handleSelect = useCallback((value)=>{
         let service = services.find(item => item.conditions.join(" + ") === value);
 
-        setTarif(service.id)
+        setProperty("tarif", service.id)
         setModalVisible(false)
-    }, [setTarif])
+    }, [])
 
     let getTarifNameNyId = useCallback((id) => {
         return services.find(item => item.id === id)?.conditions.join(" + ") || "";
     }, [services])
+
+    useEffect(() => {
+        setProperty("services", selectedServices)
+    }, [selectedServices])
 
     return (
         <View style={styles.container}>
@@ -37,7 +40,7 @@ export default function Stage3({data, setProperty}) {
                     <UnderlinedInput
                         label="Оберіть тариф"
                         inputType="default"
-                        value={getTarifNameNyId(tarif)}
+                        value={getTarifNameNyId(data.tarif)}
                         setValue={() => alert("Оберіть зі списку")}
                     />
                     <TouchableOpacity

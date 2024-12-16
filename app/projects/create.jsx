@@ -1,6 +1,7 @@
 import {Dimensions, ScrollView, StyleSheet, View} from "react-native";
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "expo-router";
+import {useSelector} from "react-redux";
 
 import ViewWithDoubleBackground from "../../components/ViewWithDoubleBackground";
 import Stage1 from "../../components/projects/Stage1";
@@ -8,12 +9,23 @@ import Stage2 from "../../components/projects/Stage2";
 import Stage3 from "../../components/projects/Stage3";
 import DarkButton from "../../components/DarkButton";
 import StageBar from "../../components/projects/StageBar";
+import projectValidationSchema from "../../lib/validateProjectForm";
+
+function getIds(arr) {
+    return arr.map(item => item.id);
+}
 
 
 export default function CreateProject() {
     let [stage, setStage] = useState(0);
     let [data, setData] = useState({});
     let router = useRouter();
+    let serviceIDs = useSelector(state => state.services.services)
+    let additionalServiceIDs = useSelector(state => state.additionalServices.additionalServices)
+
+    let validationSchema = useMemo(() => {
+        return projectValidationSchema(getIds(serviceIDs), getIds(additionalServiceIDs))
+    }, [serviceIDs, additionalServiceIDs])
 
     let setProperty = useCallback((key, value) => {
         setData((prevData) => ({
@@ -36,13 +48,24 @@ export default function CreateProject() {
         }
     }, [stage])
 
+    let create = useCallback(async () => {
+        try {
+            const resultOfValidation = await validationSchema.validate(data);
+            console.log("Validation Passed:", resultOfValidation);
+        } catch (validationError) {
+            alert("- " + validationError.inner.join("\n- "))
+        }
+    }, [validationSchema, data]);
+
+
     let goForward = useCallback(() => {
         if (stage < stagesArray.length - 1) {
             setStage(stage + 1)
         } else {
-            // save handler
+            create(data)
         }
-    }, [stage])
+    }, [stage, create])
+
 
     return (
         <ViewWithDoubleBackground style={[styles.container, {
