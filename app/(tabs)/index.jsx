@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {ScrollView, StyleSheet, View} from "react-native";
+import {useRouter} from "expo-router";
 
 import ViewWithBackground from "../../components/ViewWithBackground";
 import RoundedInput from "../../components/RoundedInput";
@@ -10,6 +11,7 @@ import RoundButton from "../../components/RoundButton";
 
 const Index = () => {
     let [searchValue, setSearchValue] = useState("");
+    let router = useRouter();
 
     return (
         <ViewWithBackground style={styles.container}>
@@ -45,7 +47,7 @@ const Index = () => {
                 </View>
             </ScrollView>
             <RoundButton
-                onPress={() => alert('Button Pressed')}
+                onPress={() => router.push("/projects/create")}
                 iconSource={require('../../assets/images/AddIcon.png')}
             />
         </ViewWithBackground>

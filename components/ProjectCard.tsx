@@ -39,7 +39,7 @@ function ProjectCard({image, name, address, price, ID}: Props) {
                     </Txt>
                 </View>
                 <View style={styles.actions}>
-                    <TouchableOpacity onPress={() => router.navigate("/")} style={styles.actionItem}>
+                    <TouchableOpacity onPress={() => router.navigate(`/projects/${ID}/view`)} style={styles.actionItem}>
                         <Image height={24}
                                width={24}
                                resizeMode="contain"
@@ -47,7 +47,7 @@ function ProjectCard({image, name, address, price, ID}: Props) {
                                source={require("../assets/images/card/view.png")}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => router.navigate("/")} style={styles.actionItem}>
+                    <TouchableOpacity onPress={() => router.navigate(`/projects/${ID}/pricelist`)} style={styles.actionItem}>
                         <Image height={24}
                                width={24}
                                resizeMode="contain"
@@ -55,7 +55,7 @@ function ProjectCard({image, name, address, price, ID}: Props) {
                                source={require("../assets/images/card/bill.png")}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => router.navigate("/")} style={styles.actionItem}>
+                    <TouchableOpacity onPress={() => router.navigate(`/projects/${ID}/edit`)} style={styles.actionItem}>
                         <Image height={24}
                                width={24}
                                resizeMode="contain"
