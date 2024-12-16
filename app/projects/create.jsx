@@ -7,6 +7,7 @@ import Stage1 from "../../components/projects/Stage1";
 import Stage2 from "../../components/projects/Stage2";
 import Stage3 from "../../components/projects/Stage3";
 import DarkButton from "../../components/DarkButton";
+import StageBar from "../../components/projects/StageBar";
 
 
 export default function CreateProject() {
@@ -41,13 +42,18 @@ export default function CreateProject() {
             padding: stage === 0 ? 0 : 50
         }]}>
             {stagesArray[stage]}
-            <View style={styles.actions}>
-                <DarkButton style={styles.actionBtn} onPress={goBack}>
-                    {stage === 0 ? "Скасувати" : "Назад"}
-                </DarkButton>
-                <DarkButton style={styles.actionBtn} onPress={goForward}>
-                    {stage === stagesArray.length - 1 ? "Зберегти" : "Далі"}
-                </DarkButton>
+            <View style={styles.control}>
+                <StageBar countOfStages={stagesArray.length}
+                          currentStage={stage}
+                />
+                <View style={styles.actions}>
+                    <DarkButton style={styles.actionBtn} onPress={goBack}>
+                        {stage === 0 ? "Скасувати" : "Назад"}
+                    </DarkButton>
+                    <DarkButton style={styles.actionBtn} onPress={goForward}>
+                        {stage === stagesArray.length - 1 ? "Зберегти" : "Далі"}
+                    </DarkButton>
+                </View>
             </View>
         </ViewWithDoubleBackground>
     )
@@ -63,12 +69,20 @@ const styles = StyleSheet.create({
     },
     actions: {
         width: "100%",
-        padding: 20,
-        position: "absolute",
-        bottom: 0,
         flexDirection: "row",
         gap: 15,
         zIndex: 1,
+        paddingBottom: 20,
+        paddingHorizontal: 20
+    },
+    control: {
+        position: "absolute",
+        bottom: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        gap: 10
     },
     actionBtn: {width: (Dimensions.get("window").width / 2) - 27.5}
 });

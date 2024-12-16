@@ -17,7 +17,7 @@ const fonts = [
     'GeologicaBlack',
 ]
 
-export default function Txt({children, style, ...props}) {
+export default function Txt({children, style={}, ...props}) {
     let font = fonts[style?.fontWeight ? Math.floor(Number(style.fontWeight) / 100) - 1 : 3];
 
     return (
