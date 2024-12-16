@@ -81,7 +81,7 @@ export default function ViewProject() {
                     Зберегти PNG
                 </DarkButton>
                 <DarkButton onPress={() => router.push("/")} style={styles.button}>
-                    Додому
+                    Назад
                 </DarkButton>
             </View>
         </ViewWithDoubleBackground>
