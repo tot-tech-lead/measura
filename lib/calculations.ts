@@ -29,6 +29,7 @@ type Calculations = {
     totalWorkPrice:number;
     totalPrice:number;
     totalTilePrice:number;
+    glueTotalPrice:number;
 };
 
 export default function useCalculateProjectDetails(project: Project): Calculations {
@@ -82,6 +83,7 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
         totalWorkPrice,
         totalPrice,
         totalTilePrice,
+        glueTotalPrice
     };
 }
 

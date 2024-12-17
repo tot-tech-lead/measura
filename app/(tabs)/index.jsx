@@ -7,7 +7,8 @@ import RoundedInput from "../../components/RoundedInput";
 import Headline from "../../components/Headline";
 import ProjectCard from "../../components/ProjectCard";
 import RoundButton from "../../components/RoundButton";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteOne} from "../../store/projects/projects";
 
 
 
@@ -18,7 +19,12 @@ const Index = () => {
 
     const Projects = useSelector(state => state.projects.projects);
 
+    const dispatch = useDispatch();
 
+    const handleDelete = (id) => {
+        dispatch(deleteOne(id));
+        alert("Проект видалено!");
+    };
 
     return (
         <ViewWithBackground style={styles.container}>
