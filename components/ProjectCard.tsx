@@ -1,4 +1,13 @@
-import {FlatList, Image, ImageSourcePropType, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    Dimensions,
+    FlatList,
+    Image,
+    ImageSourcePropType,
+    Modal,
+    StyleSheet,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import Txt from "./Text";
 import {useRouter} from "expo-router";
 import {useDispatch} from "react-redux";
@@ -202,16 +211,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
+        padding: 23
     },
     modalContent: {
-        width: "80%",
+        width: "100%",
         backgroundColor: "white",
         borderRadius: 10,
         padding: 20,
         alignItems: "center",
     },
     closeButton: {
-        width: "40%",
+        width: ((Dimensions.get("window").width - 101) / 2),
         marginTop: 20,
         backgroundColor: "#333333",
         paddingHorizontal: 5,
@@ -219,23 +229,22 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     modalText: {
-        fontWeight: 400,
-        fontSize: 16,
+        fontWeight: 300,
+        fontSize: 14,
         textAlign: "center",
-        fontFamily: "GeologicaRegular",
+        color: "#333333",
+        opacity: 0.4
     },
     ButtonText: {
         fontSize: 18,
-        fontFamily: "GeologicaLight",
         fontWeight: 300,
         color: "#fff",
         textAlign: "center"
     },
-
     buttonsContainer: {
         display: "flex",
         flexDirection: "row",
-        gap: 25,
+        gap: 15,
     }
 })
 
