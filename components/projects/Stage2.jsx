@@ -9,15 +9,15 @@ export default function Stage2({data, setProperty}) {
             <Headline>Матеріали</Headline>
             <UnderlinedInput value={data?.tileWidth || ""}
                              setValue={(v) => setProperty("tileWidth", v)}
-                             label={"Ширина плитки"}
+                             label={"Ширина плитки (мм.)"}
                              inputType="numeric" />
             <UnderlinedInput value={data?.tileHeight || ""}
                              setValue={(v) => setProperty("tileHeight", v)}
-                             label={"Довжина плитки"}
+                             label={"Довжина плитки (мм.)"}
                              inputType="numeric" />
             <UnderlinedInput value={data?.tileCostForMeterSq || ""}
                              setValue={(v) => setProperty("tileCostForMeterSq", v)}
-                             label={"Вартість за 1 м2"}
+                             label={"Вартість за 1 м²"}
                              inputType="numeric" />
             <UnderlinedInput value={data?.gluePrice || ""}
                              setValue={(v) => setProperty("gluePrice", v)}
@@ -25,7 +25,7 @@ export default function Stage2({data, setProperty}) {
                              inputType="numeric" />
             <UnderlinedInput value={data?.glueWeight || ""}
                              setValue={(v) => setProperty("glueWeight", v)}
-                             label={"Маса мішка"}
+                             label={"Маса мішка (кг)"}
                              inputType="numeric" />
         </View>
     )

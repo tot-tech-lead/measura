@@ -10,9 +10,15 @@ import RoundButton from "../../components/RoundButton";
 import {useSelector} from "react-redux";
 
 
+
+
 const Index = () => {
     let [searchValue, setSearchValue] = useState("");
     let router = useRouter();
+
+    const Projects = useSelector(state => state.projects.projects);
+
+
 
     return (
         <ViewWithBackground style={styles.container}>
@@ -29,22 +35,17 @@ const Index = () => {
                     />
                 </View>
                 <View style={styles.projectsContainer}>
-                    <ProjectCard name="name"
-                                 address="address"
-                                 price={1000500}
-                                 ID="1"/>
-                    <ProjectCard name="name 1"
-                                 address="address"
-                                 price={1000500}
-                                 ID="2"/>
-                    <ProjectCard name="name 2"
-                                 address="address"
-                                 price={1000500}
-                                 ID="3"/>
-                    <ProjectCard name="name 3"
-                                 address="address"
-                                 price={1000500}
-                                 ID="5"/>
+                    {Projects.map(item => (
+                        <ProjectCard
+                            key={item.id }
+                            image={item.cover && {uri: item.cover}}
+                            name={item.name}
+                            address={item.address}
+                            area={item.area}
+                            ID={item.id}
+                        />
+                    ))}
+
                 </View>
             </ScrollView>
             <RoundButton

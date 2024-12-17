@@ -6,11 +6,11 @@ type Props = {
     image?: ImageSourcePropType;
     name: string;
     address: string;
-    price: number;
+    area: number;
     ID: string;
 }
 
-function ProjectCard({image, name, address, price, ID}: Props) {
+function ProjectCard({image, name, address, area, ID}: Props) {
     let router = useRouter();
 
 
@@ -35,7 +35,7 @@ function ProjectCard({image, name, address, price, ID}: Props) {
                         {address}
                     </Txt>
                     <Txt style={styles.text}>
-                        Cost: <Txt style={styles.textBold}>{price}₴</Txt>
+                        Площа поверхні: <Txt style={styles.textBold}>{area} м²</Txt>
                     </Txt>
                 </View>
                 <View style={styles.actions}>
