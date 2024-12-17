@@ -58,7 +58,7 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
     const totalTileCount = tileArea > 0 ? Math.ceil(area / tileArea) : 0;
     const tilesPerSquareMeter = tileArea > 0 ? 1 / tileArea : 0;
     const areaWithPercentage = area + area * ZAPAS_PLYTKY;
-    const workPrice = areaWithPercentage * price;
+    const workPrice = area * price;
     const glueTotalAmount = KG_OF_GLUE_PER_mSQ * areaWithPercentage;
     const glueTotalPrice = (glueTotalAmount/glueWeight) * gluePrice ;
 

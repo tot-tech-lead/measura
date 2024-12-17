@@ -1,6 +1,10 @@
-import {Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, ImageSourcePropType, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Txt from "./Text";
 import {useRouter} from "expo-router";
+import {useDispatch} from "react-redux";
+import {deleteOne} from "../store/projects/projects";
+import Headline from "./Headline";
+import {useState} from "react";
 
 type Props = {
     image?: ImageSourcePropType;
@@ -12,7 +16,16 @@ type Props = {
 
 function ProjectCard({image, name, address, area, ID}: Props) {
     let router = useRouter();
+    const [isModalVisible, setModalVisible] = useState(false);
 
+    const dispatch = useDispatch();
+
+
+    const handleDelete = (id) => {
+        dispatch(deleteOne(id));
+        setModalVisible(false)
+        alert("Проект видалено!");
+    };
 
     return (
         <View style={styles.card}>
@@ -32,7 +45,7 @@ function ProjectCard({image, name, address, area, ID}: Props) {
                          numberOfLines={2}
                          ellipsizeMode="tail"
                     >
-                        {address}
+                        Адреса: <Txt style={styles.textBold}>{address || "-"}</Txt>
                     </Txt>
                     <Txt style={styles.text}>
                         Площа поверхні: <Txt style={styles.textBold}>{area} м²</Txt>
@@ -63,7 +76,7 @@ function ProjectCard({image, name, address, area, ID}: Props) {
                                source={require("../assets/images/card/edit.png")}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => alert("In development")} style={styles.actionItem}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.actionItem}>
                         <Image height={24}
                                width={24}
                                resizeMode="contain"
@@ -73,6 +86,43 @@ function ProjectCard({image, name, address, area, ID}: Props) {
                     </TouchableOpacity>
                 </View>
             </View>
+            <Modal
+                visible={isModalVisible}
+                transparent={true}
+                animationType="slide"
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Headline>Видалити ?</Headline>
+
+                        <Txt style={styles.modalText}>Ви впевнені що хочете видалити проект {name}?
+                            Цю дію не можна буде скасувати
+                        </Txt>
+
+                        <View style={styles.buttonsContainer}>
+
+                            <TouchableOpacity
+                                style={styles.closeButton}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Txt style={styles.ButtonText}>Ні</Txt>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={styles.closeButton}
+                                onPress={() => handleDelete(ID)}
+                            >
+                                <Txt style={styles.ButtonText}>Так</Txt>
+                            </TouchableOpacity>
+
+
+                        </View>
+
+
+
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -147,6 +197,46 @@ const styles = StyleSheet.create({
         width: 24,
         objectFit: "contain",
     },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    modalContent: {
+        width: "80%",
+        backgroundColor: "white",
+        borderRadius: 10,
+        padding: 20,
+        alignItems: "center",
+    },
+    closeButton: {
+        width: "40%",
+        marginTop: 20,
+        backgroundColor: "#333333",
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+        borderRadius: 5,
+    },
+    modalText: {
+        fontWeight: 400,
+        fontSize: 16,
+        textAlign: "center",
+        fontFamily: "GeologicaRegular",
+    },
+    ButtonText: {
+        fontSize: 18,
+        fontFamily: "GeologicaLight",
+        fontWeight: 300,
+        color: "#fff",
+        textAlign: "center"
+    },
+
+    buttonsContainer: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 25,
+    }
 })
 
 export default ProjectCard;
