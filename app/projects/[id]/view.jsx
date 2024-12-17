@@ -1,6 +1,6 @@
 import {useLocalSearchParams, useRouter} from "expo-router";
 import React, { useState, useRef } from "react";
-import {Animated, ScrollView, StyleSheet, View, Image, TouchableOpacity, Modal} from "react-native";
+import {Animated, ScrollView, StyleSheet, View, Image, TouchableOpacity, Modal, Dimensions} from "react-native";
 
 import ViewWithDoubleBackground from "../../../components/ViewWithDoubleBackground";
 import Headline from "../../../components/Headline";
@@ -372,16 +372,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
+        padding: 23
     },
     modalContent: {
-        width: "80%",
+        width: "100%",
         backgroundColor: "white",
         borderRadius: 10,
         padding: 20,
         alignItems: "center",
     },
     closeButton: {
-        width: "40%",
+        width: ((Dimensions.get("window").width - 101) / 2),
         marginTop: 20,
         backgroundColor: "#333333",
         paddingHorizontal: 5,
@@ -389,23 +390,22 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     modalText: {
-        fontWeight: 400,
-        fontSize: 16,
+        fontWeight: 300,
+        fontSize: 14,
         textAlign: "center",
-        fontFamily: "GeologicaRegular",
+        color: "#333333",
+        opacity: 0.4
     },
     ButtonText: {
         fontSize: 18,
-        fontFamily: "GeologicaLight",
         fontWeight: 300,
         color: "#fff",
         textAlign: "center"
     },
-
     buttonsModalContainer: {
         display: "flex",
         flexDirection: "row",
-        gap: 25,
+        gap: 15,
     },
     deletedContainer: {
         flex: 1,
