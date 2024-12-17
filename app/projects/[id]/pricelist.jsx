@@ -76,19 +76,19 @@ export default function ViewProject() {
                     <Txt style={styles.budgetHeadline}>Кошторис</Txt>
                     <View style={styles.lineItem}>
                         <Txt style={styles.leftText}>Вартість роботи</Txt>
-                        <Txt style={styles.rightText}>{calculations.totalWorkPrice.toFixed(2)}₴</Txt>
+                        <Txt style={styles.rightText}>{calculations.totalWorkPrice.toLocaleString("uk-UA", { minimumFractionDigits: 2 })}₴</Txt>
                     </View>
                     <View style={styles.lineItem}>
                         <Txt style={styles.leftText}>Вартість клею</Txt>
-                        <Txt style={styles.rightText}>{calculations.glueTotalPrice.toFixed(2)}₴</Txt>
+                        <Txt style={styles.rightText}>{calculations.glueTotalPrice.toLocaleString("uk-UA", { minimumFractionDigits: 2 })}₴</Txt>
                     </View>
                     <View style={styles.lineItem}>
                         <Txt style={styles.leftText}>Вартість плитки</Txt>
-                        <Txt style={styles.rightText}>{calculations.totalTilePrice.toFixed(2)}₴</Txt>
+                        <Txt style={styles.rightText}>{calculations.totalTilePrice.toLocaleString("uk-UA", { minimumFractionDigits: 2 })}₴</Txt>
                     </View>
                     <View style={styles.total}>
                         <Txt style={styles.totalText}>Загальна вартість</Txt>
-                        <Txt style={styles.totalAmount}>{calculations.totalPrice.toFixed(2)}₴</Txt>
+                        <Txt style={styles.totalAmount}>{calculations.totalPrice.toLocaleString("uk-UA", { minimumFractionDigits: 2 })}₴</Txt>
                     </View>
                 </View>
             </ViewShot>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         marginTop: 15,
+        gap: 10,
     },
     totalText: {
         fontSize: 20,
