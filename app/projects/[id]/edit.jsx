@@ -9,10 +9,11 @@ import Stage2 from "../../../components/projects/Stage2";
 import Stage3 from "../../../components/projects/Stage3";
 import DarkButton from "../../../components/DarkButton";
 import StageBar from "../../../components/projects/StageBar";
-import projectValidationSchema from "../../../lib/validateProjectForm";
-import {addNew} from "../../../store/projects/projects";
+import {createdProjectValidationSchema} from "../../../lib/validateProjectForm";
+import {editOne} from "../../../store/projects/projects";
 import Headline from "../../../components/Headline";
 import Txt from "../../../components/Text";
+
 
 function getIds(arr) {
     return arr.map(item => item.id);
@@ -30,9 +31,11 @@ export default function CreateProject() {
     let [stage, setStage] = useState(0);
     let [data, setData] = useState({});
 
+
     let validationSchema = useMemo(() => {
-        return projectValidationSchema(getIds(serviceIDs), getIds(additionalServiceIDs))
+        return createdProjectValidationSchema(getIds(serviceIDs), getIds(additionalServiceIDs))
     }, [serviceIDs, additionalServiceIDs])
+
 
     let setProperty = useCallback((key, value) => {
         setData((prevData) => ({
@@ -41,11 +44,13 @@ export default function CreateProject() {
         }));
     }, [setData]);
 
+
     let stagesArray = useMemo(() => [
         <Stage1 setProperty={setProperty} data={data}/>,
         <Stage2 setProperty={setProperty} data={data}/>,
         <Stage3 setProperty={setProperty} data={data}/>,
     ], [data, setProperty]);
+
 
     let goBack = useCallback(() => {
         if (stage > 0) {
@@ -55,12 +60,13 @@ export default function CreateProject() {
         }
     }, [stage])
 
-    let create = useCallback(async () => {
+
+    let save = useCallback(async () => {
         try {
             const resultOfValidation = await validationSchema.validate(data);
-            dispatch(addNew(resultOfValidation))
+            dispatch(editOne(resultOfValidation))
             router.push("/")
-            alert("Новий проект створено!")
+            alert("Проект змінено успішно!")
         } catch (validationError) {
             alert("- " + validationError.inner.join("\n- "))
         }
@@ -71,9 +77,9 @@ export default function CreateProject() {
         if (stage < stagesArray.length - 1) {
             setStage(stage + 1)
         } else {
-            create(data)
+            save(data)
         }
-    }, [stage, create])
+    }, [stage, save])
 
 
     useEffect(() => {
@@ -81,6 +87,7 @@ export default function CreateProject() {
 
         setData(currentProject)
     }, [setData]);
+
 
     if (!data.id) {
         return <>
