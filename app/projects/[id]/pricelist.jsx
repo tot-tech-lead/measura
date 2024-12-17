@@ -9,13 +9,32 @@ import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import ViewShot from "react-native-view-shot";
 import * as Print from "expo-print";
-
+import useCalculateProjectDetails from "../../../lib/calculations";
 import React, { useRef } from "react";
+import {useSelector} from "react-redux";
 
 export default function ViewProject() {
     const { id } = useLocalSearchParams();
-    const viewShotRef = useRef();
+    
+    const projectInfo = useSelector(state =>
+        state.projects.projects.find((project) => project.id === id)
+    );
+    const projectData = {
+        "area": projectInfo.area,
+        "gluePrice": projectInfo.gluePrice,
+        "glueWeight": projectInfo.glueWeight,
+        "services": [
+            projectInfo.services
+        ],
+        "tarif": projectInfo.tarif,
+        "tileCostForMeterSq": projectInfo.tileCostForMeterSq,
+        "tileHeight": projectInfo.tileHeight,
+        "tileWidth": projectInfo.tileWidth,
+    }
 
+    const calculations = useCalculateProjectDetails(projectData);
+
+    const viewShotRef = useRef();
     const saveAsPNG = async () => {
         try {
             const uri = await viewShotRef.current.capture();
@@ -52,24 +71,24 @@ export default function ViewProject() {
     return (
         <ViewWithDoubleBackground style={styles.container}>
             <ViewShot ref={viewShotRef} options={{ format: "png", quality: 1 }}>
-                <Headline>Проєкт {id}</Headline>
+                <Headline>Проєкт {projectInfo.name}</Headline>
                 <View style={styles.budgetContainer}>
                     <Txt style={styles.budgetHeadline}>Кошторис</Txt>
                     <View style={styles.lineItem}>
                         <Txt style={styles.leftText}>Вартість роботи</Txt>
-                        <Txt style={styles.rightText}>20000₴</Txt>
+                        <Txt style={styles.rightText}>{calculations.totalWorkPrice.toFixed(2)}₴</Txt>
                     </View>
                     <View style={styles.lineItem}>
                         <Txt style={styles.leftText}>Вартість клею</Txt>
-                        <Txt style={styles.rightText}>1070₴</Txt>
+                        <Txt style={styles.rightText}>{calculations.glueTotalPrice.toFixed(2)}₴</Txt>
                     </View>
                     <View style={styles.lineItem}>
                         <Txt style={styles.leftText}>Вартість плитки</Txt>
-                        <Txt style={styles.rightText}>21400₴</Txt>
+                        <Txt style={styles.rightText}>{calculations.totalTilePrice.toFixed(2)}₴</Txt>
                     </View>
                     <View style={styles.total}>
                         <Txt style={styles.totalText}>Загальна вартість</Txt>
-                        <Txt style={styles.totalAmount}>42470₴</Txt>
+                        <Txt style={styles.totalAmount}>{calculations.totalPrice.toFixed(2)}₴</Txt>
                     </View>
                 </View>
             </ViewShot>
