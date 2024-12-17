@@ -93,14 +93,23 @@ export default function ViewProject() {
                 </View>
             </ViewShot>
             <View style={styles.buttonContainer}>
-                <DarkButton onPress={saveAsPDF} style={styles.button}>
-                    Зберегти PDF
+                <DarkButton onPress={saveAsPDF} 
+                            style={styles.button} 
+                            iconSource={require("../../../assets/images/pdfIcon.png")}
+                            iconPlacement="before">
+                                Зберегти PDF
                 </DarkButton>
-                <DarkButton onPress={saveAsPNG} style={styles.button}>
-                    Зберегти PNG
+                <DarkButton onPress={saveAsPNG} 
+                            style={styles.button}
+                            iconSource={require("../../../assets/images/jpgIcon.png")}
+                            iconPlacement="before">
+                                Зберегти JPG
                 </DarkButton>
-                <DarkButton onPress={() => router.push("/")} style={styles.button}>
-                    Назад
+                <DarkButton onPress={() => router.push("/")} 
+                            style={styles.button}
+                            iconSource={require("../../../assets/images/homeIcon.png")}
+                            iconPlacement="before">
+                                Назад
                 </DarkButton>
             </View>
         </ViewWithDoubleBackground>
