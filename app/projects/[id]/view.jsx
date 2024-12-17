@@ -15,7 +15,6 @@ export default function ViewProject() {
     const projectInfo = useSelector(state =>
         state.projects.projects.find((project) => project.id === id)
     );
-
     const project = {
         "area": projectInfo.area,
         "gluePrice": projectInfo.gluePrice,

@@ -7,23 +7,23 @@ export default function Stage2({data, setProperty}) {
     return (
         <View style={styles.container}>
             <Headline>Матеріали</Headline>
-            <UnderlinedInput value={data?.tileWidth || ""}
+            <UnderlinedInput value={String(data?.tileWidth) || ""}
                              setValue={(v) => setProperty("tileWidth", v)}
                              label={"Ширина плитки (мм.)"}
                              inputType="numeric" />
-            <UnderlinedInput value={data?.tileHeight || ""}
+            <UnderlinedInput value={String(data?.tileHeight) || ""}
                              setValue={(v) => setProperty("tileHeight", v)}
                              label={"Довжина плитки (мм.)"}
                              inputType="numeric" />
-            <UnderlinedInput value={data?.tileCostForMeterSq || ""}
+            <UnderlinedInput value={String(data?.tileCostForMeterSq) || ""}
                              setValue={(v) => setProperty("tileCostForMeterSq", v)}
                              label={"Вартість за 1 м²"}
                              inputType="numeric" />
-            <UnderlinedInput value={data?.gluePrice || ""}
+            <UnderlinedInput value={String(data?.gluePrice) || ""}
                              setValue={(v) => setProperty("gluePrice", v)}
                              label={"Вартість мішка клею"}
                              inputType="numeric" />
-            <UnderlinedInput value={data?.glueWeight || ""}
+            <UnderlinedInput value={String(data?.glueWeight) || ""}
                              setValue={(v) => setProperty("glueWeight", v)}
                              label={"Маса мішка (кг)"}
                              inputType="numeric" />
