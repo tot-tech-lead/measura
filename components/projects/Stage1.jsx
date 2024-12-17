@@ -49,22 +49,22 @@ export default function Stage1({data, setProperty}) {
 
                 <Headline>Новий проєкт</Headline>
                 <View style={styles.form}>
-                    <UnderlinedInput value={data?.name}
+                    <UnderlinedInput value={data?.name ? String(data?.name): ""}
                                      setValue={(v) => setProperty("name", v)}
                                      label="Назва"
                                      inputType="default"
                     />
-                    <UnderlinedInput value={data?.address}
+                    <UnderlinedInput value={data?.address ? String(data?.address): ""}
                                      setValue={(v) => setProperty("address", v)}
                                      label="Адреса (не обов'язково)"
                                      inputType="default"
                     />
-                    <UnderlinedInput value={data?.area}
+                    <UnderlinedInput value={data?.area ? String(data?.area): ""}
                                      setValue={(v) => setProperty("area", v)}
                                      label="Площа поверхні"
                                      inputType="numeric"
                     />
-                    <UnderlinedInput value={data?.description}
+                    <UnderlinedInput value={data?.description ? String(data?.description): ""}
                                      setValue={(v) => setProperty("description", v)}
                                      label="Опис (не обов'язково)"
                                      inputType="default"
