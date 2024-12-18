@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     label: {
         fontFamily: "GeologicaRegular",
         fontWeight: "400",
-        fontSize: 12,
+        fontSize: 11,
     }
 })
 

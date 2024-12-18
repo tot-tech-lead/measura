@@ -9,7 +9,7 @@ import {useSelector} from "react-redux";
 import AdditionalServiceCard from "../../components/AdditionalServiceCard";
 
 const decodeType = {
-    "forArea": "м²",
+    "forArea": "одиницю площі",
     "once": "одиниці"
 }
 

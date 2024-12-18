@@ -12,7 +12,7 @@ import Txt from "../../components/Text";
 import {addNew} from "../../store/additionalServices/additionalServices";
 
 const encodeType = {
-    "м²": "forArea",
+    "одиницю площі": "forArea",
     "одиниці": "once"
 }
 

@@ -11,7 +11,7 @@ import DarkButton from "../../../components/DarkButton";
 import {editOne} from "../../../store/additionalServices/additionalServices";
 
 const encodeType = {
-    "м^2": "forArea",
+    "одиницю площі": "forArea",
     "одиниці": "once"
 };
 
