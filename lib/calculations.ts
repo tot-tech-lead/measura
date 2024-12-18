@@ -54,7 +54,7 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
     const glueWeight = parseFloat(project.glueWeight) || 0;
     const tileCostForMeterSq = parseFloat(project.tileCostForMeterSq) || 0;
 
-    const tileArea = (tileHeight * tileWidth) / 1000000;
+    const tileArea = tileHeight * tileWidth;
     const totalTileCount = tileArea > 0 ? Math.ceil(area / tileArea) : 0;
     const tilesPerSquareMeter = tileArea > 0 ? 1 / tileArea : 0;
     const areaWithPercentage = area + (area * ZAPAS_PLYTKY);

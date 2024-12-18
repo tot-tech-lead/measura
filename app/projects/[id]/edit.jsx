@@ -20,6 +20,15 @@ function getIds(arr) {
 }
 
 
+let prepareUploaded = (data) => {
+    return {
+        ...data,
+        tileWidth: Number(data.tileWidth) * 1000,
+        tileHeight: Number(data.tileHeight) * 1000,
+    }
+}
+
+
 export default function CreateProject() {
     let dispatch = useDispatch();
     let router = useRouter();
@@ -61,10 +70,21 @@ export default function CreateProject() {
     }, [stage])
 
 
+    let prepareToStore = (data) => {
+        return {
+            ...data,
+            tileWidth: Number(data.tileWidth) / 1000,
+            tileHeight: Number(data.tileHeight) / 1000,
+        }
+    }
+
+
     let save = useCallback(async () => {
         try {
             const resultOfValidation = await validationSchema.validate(data);
-            dispatch(editOne(resultOfValidation))
+            dispatch(editOne(
+                prepareToStore(resultOfValidation),
+            ))
             router.push("/")
             alert("Проект змінено успішно!")
         } catch (validationError) {
@@ -85,7 +105,9 @@ export default function CreateProject() {
     useEffect(() => {
         let currentProject = projects.find(item => item.id === id);
 
-        setData(currentProject)
+        setData(
+            prepareUploaded(currentProject)
+        )
     }, [setData]);
 
 

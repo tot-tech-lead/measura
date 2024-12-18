@@ -51,10 +51,20 @@ export default function CreateProject() {
         }
     }, [stage])
 
+    let prepareToStore = (data) => {
+        return {
+            ...data,
+            tileWidth: Number(data.tileWidth) / 1000,
+            tileHeight: Number(data.tileHeight) / 1000,
+        }
+    }
+
     let create = useCallback(async () => {
         try {
             const resultOfValidation = await validationSchema.validate(data);
-            dispatch(addNew(resultOfValidation))
+            dispatch(addNew(
+                prepareToStore(resultOfValidation)
+            ))
             router.push("/")
             alert("Новий проект створено!")
         } catch (validationError) {
