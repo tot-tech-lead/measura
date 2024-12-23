@@ -130,7 +130,7 @@ export default function ViewProject() {
                         </Txt>
 
                         <Txt style={styles.text}>
-                            Кількість мішків клею: <Txt style={styles.textBold}>{calculated.glueTotalAmount.toFixed(0)} шт.</Txt>
+                            Кількість мішків клею: <Txt style={styles.textBold}>{calculated.countOfGlueBags.toFixed(0)} шт.</Txt>
                         </Txt>
 
                         <Txt style={styles.text}>

@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
 type Project = {
     area: string;
@@ -25,11 +25,12 @@ type Calculations = {
     areaWithPercentage: number;
     workPrice: number;
     additionalPrice: number;
-    glueTotalAmount:number;
-    totalWorkPrice:number;
-    totalPrice:number;
-    totalTilePrice:number;
-    glueTotalPrice:number;
+    glueTotalAmount: number;
+    totalWorkPrice: number;
+    totalPrice: number;
+    totalTilePrice: number;
+    glueTotalPrice: number;
+    countOfGlueBags: number;
 };
 
 export default function useCalculateProjectDetails(project: Project): Calculations {
@@ -60,7 +61,8 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
     const areaWithPercentage = area + (area * ZAPAS_PLYTKY);
     const workPrice = area * price;
     const glueTotalAmount = KG_OF_GLUE_PER_mSQ * areaWithPercentage;
-    const glueTotalPrice = (glueTotalAmount/glueWeight) * gluePrice ;
+    const countOfGlueBags = Math.ceil(glueTotalAmount / glueWeight);
+    const glueTotalPrice = (glueTotalAmount / glueWeight) * gluePrice;
 
     const additionalPrice = selectedServices.reduce((sum, service) => {
         return sum + (service.type === "forArea" ? service.price * areaWithPercentage : service.price);
@@ -83,7 +85,8 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
         totalWorkPrice,
         totalPrice,
         totalTilePrice,
-        glueTotalPrice
+        glueTotalPrice,
+        countOfGlueBags
     };
 }
 
