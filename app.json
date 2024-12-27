@@ -18,7 +18,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFBF6"
+        "backgroundColor": "#FFFBF6",
+        "versionCode": 4
       },
       "package": "com.anonymous.measura"
     },
