@@ -22,7 +22,6 @@ type Calculations = {
     tileArea: number;
     totalTileCount: number;
     tilesPerSquareMeter: number;
-    areaWithPercentage: number;
     workPrice: number;
     additionalPrice: number;
     glueTotalAmount: number;
@@ -31,6 +30,12 @@ type Calculations = {
     totalTilePrice: number;
     glueTotalPrice: number;
     countOfGlueBags: number;
+    area: number;
+    glueTotalAmountWithPercentage: number;
+    countOfGlueBagsWithPercentage: number;
+    glueTotalPriceWithPercentage: number;
+    totalTilePriceWithPercentage: number;
+    totalPriceWithPercentage: number;
 };
 
 export default function useCalculateProjectDetails(project: Project): Calculations {
@@ -55,29 +60,45 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
     const glueWeight = parseFloat(project.glueWeight) || 0;
     const tileCostForMeterSq = parseFloat(project.tileCostForMeterSq) || 0;
 
+    //CALCULATIONS
+     //tiles calculations
     const tileArea = tileHeight * tileWidth;
     const totalTileCount = tileArea > 0 ? Math.ceil(area / tileArea) : 0;
     const tilesPerSquareMeter = tileArea > 0 ? 1 / tileArea : 0;
-    const areaWithPercentage = area + (area * ZAPAS_PLYTKY);
-    const workPrice = area * price;
-    const glueTotalAmount = KG_OF_GLUE_PER_mSQ * areaWithPercentage;
+    const totalTilePrice = area * tileCostForMeterSq;
+
+    //glue calculations
+    const glueTotalAmount = KG_OF_GLUE_PER_mSQ * area;
     const countOfGlueBags = Math.ceil(glueTotalAmount / glueWeight);
-    const glueTotalPrice = (glueTotalAmount / glueWeight) * gluePrice;
+    const glueTotalPrice = countOfGlueBags * gluePrice;
 
+     // work calculations
     const additionalPrice = selectedServices.reduce((sum, service) => {
-        return sum + (service.type === "forArea" ? service.price * areaWithPercentage : service.price);
+        return sum + (service.type === "forArea" ? service.price * area : service.price);
     }, 0);
-
+    const workPrice = area * price;
     const totalWorkPrice = workPrice + additionalPrice;
-
-    const totalTilePrice = areaWithPercentage * tileCostForMeterSq;
-
     const totalPrice = totalWorkPrice + totalTilePrice + glueTotalPrice;
+
+
+
+
+    //CALCULATIONS WITH %
+    const areaWithPercentage = area + (area * ZAPAS_PLYTKY);
+
+    const glueTotalAmountWithPercentage = KG_OF_GLUE_PER_mSQ * areaWithPercentage;
+
+    const countOfGlueBagsWithPercentage = Math.ceil(glueTotalAmountWithPercentage / glueWeight);
+
+    const glueTotalPriceWithPercentage = countOfGlueBagsWithPercentage * gluePrice;
+
+    const totalTilePriceWithPercentage = areaWithPercentage * tileCostForMeterSq;
+
+    const totalPriceWithPercentage = totalWorkPrice + totalTilePriceWithPercentage + glueTotalPriceWithPercentage;
 
     return {
         tileArea,
         tilesPerSquareMeter,
-        areaWithPercentage,
         totalTileCount,
         glueTotalAmount,
         workPrice,
@@ -86,7 +107,13 @@ export default function useCalculateProjectDetails(project: Project): Calculatio
         totalPrice,
         totalTilePrice,
         glueTotalPrice,
-        countOfGlueBags
+        countOfGlueBags,
+        area,
+        glueTotalAmountWithPercentage,
+        countOfGlueBagsWithPercentage,
+        glueTotalPriceWithPercentage,
+        totalTilePriceWithPercentage,
+        totalPriceWithPercentage
     };
 }
 

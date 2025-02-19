@@ -10,11 +10,13 @@ import useCalculateProjectDetails from "../../../lib/calculations";
 import Txt from "../../../components/Text";
 import RoundButton from "../../../components/RoundButton";
 import {deleteOne} from "../../../store/projects/projects";
-
-
+import Checkbox from "../../../components/UI/Checkbox/Checkbox";
 
 export default function ViewProject() {
     let {id} = useLocalSearchParams()
+
+    const [isChecked, setIsChecked] = useState(false);
+
 
     let router = useRouter();
     const projectInfo = useSelector(state =>
@@ -109,7 +111,12 @@ export default function ViewProject() {
 
                 <View style={styles.infoContainer}>
                     <Txt style={styles.totalPrice}>
-                        Загальна вартість: <Txt style={styles.totalPriceBold}>{calculated.totalPrice.toFixed(2)} ₴</Txt>
+                        Загальна вартість: { isChecked ?
+                        <Txt style={styles.totalPriceBold}>{calculated.totalPriceWithPercentage.toFixed(2)} ₴</Txt>
+                        :
+                        <Txt style={styles.totalPriceBold}>{calculated.totalPrice.toFixed(2)} ₴</Txt>
+                    }
+
                     </Txt>
 
                     <Txt style={styles.text}>
@@ -126,19 +133,34 @@ export default function ViewProject() {
                         </Txt>
 
                         <Txt style={styles.text}>
-                            Площа поверхні(з врах. відсотку): <Txt style={styles.textBold}>{calculated.areaWithPercentage.toFixed(2)} м²</Txt>
+                            Площа поверхні:<Txt style={styles.textBold}>{calculated.area.toFixed(2)} м²</Txt>
+                        </Txt>
+
+
+                        <Txt style={styles.text}>
+                            Кількість мішків клею: { isChecked ?
+                            <Txt style={styles.textBold}>{calculated.countOfGlueBagsWithPercentage.toFixed(0)} шт.</Txt>
+                            :
+                            <Txt style={styles.textBold}>{calculated.countOfGlueBags.toFixed(0)} шт.</Txt>
+                            }
                         </Txt>
 
                         <Txt style={styles.text}>
-                            Кількість мішків клею: <Txt style={styles.textBold}>{calculated.countOfGlueBags.toFixed(0)} шт.</Txt>
+                            Загальна вартість покриття: { isChecked ?
+                            <Txt style={styles.textBold}>{calculated.totalTilePriceWithPercentage.toFixed(2)} ₴</Txt>
+                            :
+                            <Txt style={styles.textBold}>{calculated.totalTilePrice.toFixed(2)} ₴</Txt>
+                            }
                         </Txt>
 
                         <Txt style={styles.text}>
-                            Загальна вартість покриття: <Txt style={styles.textBold}>{calculated.totalTilePrice.toFixed(2)} ₴</Txt>
-                        </Txt>
+                            Загальна вартість клею: { isChecked ?
+                            <Txt style={styles.textBold}>{calculated.glueTotalPriceWithPercentage.toFixed(2)} ₴</Txt>
+                            :
+                            <Txt style={styles.textBold}>{calculated.glueTotalPrice.toFixed(2)} ₴</Txt>
+                        }
 
-                        <Txt style={styles.text}>
-                            Загальна вартість клею: <Txt style={styles.textBold}>{calculated.glueTotalPrice.toFixed(2)} ₴</Txt>
+
                         </Txt>
 
                         <Txt style={styles.text}>
@@ -159,6 +181,17 @@ export default function ViewProject() {
                         <Txt style={styles.text}>
                             Загальна вартість роботи: <Txt style={styles.textBold}>{calculated.totalWorkPrice} ₴</Txt>
                         </Txt>
+
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+
+
+                            <Checkbox
+                                label="з врах. відсотку"
+                                value={isChecked}
+                                onChange={setIsChecked}
+
+                            />
+                        </View>
                     </View>
 
                     <Txt style={styles.subHead}>
@@ -420,4 +453,8 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         textAlign: "center",
     },
+
+    checkBox: {
+
+    }
 });
