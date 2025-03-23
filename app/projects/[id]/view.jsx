@@ -11,6 +11,7 @@ import Txt from "../../../components/Text";
 import RoundButton from "../../../components/RoundButton";
 import {deleteOne} from "../../../store/projects/projects";
 import Checkbox from "../../../components/UI/Checkbox/Checkbox";
+import Slider from "../../../components/Slider";
 
 export default function ViewProject() {
     let {id} = useLocalSearchParams()
@@ -102,13 +103,9 @@ export default function ViewProject() {
 
     return (
         <ViewWithDoubleBackground>
-            <Image
-                source={ projectInfo?.cover ? { uri: projectInfo.cover } : defaultImg }
-                style={styles.image}
-            />
             <ScrollView style={styles.container}>
                 <Headline>{projectInfo.name}</Headline>
-
+                <Slider />
                 <View style={styles.infoContainer}>
                     <Txt style={styles.totalPrice}>
                         Загальна вартість: { isChecked ?
@@ -309,12 +306,6 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         padding: 35,
         gap: 25,
-    },
-    image: {
-        width: "100%",
-        height: 200,
-        resizeMode: "cover",
-
     },
 
     subHead: {
