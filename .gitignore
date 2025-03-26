@@ -42,3 +42,5 @@ app-example
 /ios
 
 cert.json
+
+/.idea
