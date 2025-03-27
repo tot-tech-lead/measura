@@ -1,5 +1,15 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "paths": {
+      "@components": ["./components"],
+      "@lib": ["./lib"],
+      "@images": ["./assets/images"],
+      "@fonts": ["./assets/fonts"],
+      "@svg": ["./assets/svg"],
+      "@app": ["./app"],
+      "@store": ["./store"]
+    }
+  },
   "extends": "expo/tsconfig.base",
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
