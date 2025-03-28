@@ -1,25 +1,33 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, type ReactElement } from 'react';
 import Svg, { Rect, Line, Marker, Path, Defs } from 'react-native-svg';
-import DarkButton from '../../DarkButton';
-import Headline from '../../Headline';
-import UnderlinedInput from '../../UnderlinedInput';
-import Txt from '../../Text';
+
+import DarkButton from '@components/DarkButton';
+import Headline from '@components/Headline';
+import UnderlinedInput from '@components/UnderlinedInput';
+import Txt from '@components/Text';
+
+import {
+  ShapeTypes,
+  SHAPE_OPTIONS,
+  SurfaceTypes,
+  SURFACE_OPTIONS,
+} from '@surfacesConstants/constants';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const maxWidth = screenWidth * 0.8;
 const maxLength = screenHeight * 0.2;
 
-const Stage1 = () => {
+const Stage1 = (): ReactElement => {
   const strokeWidth = 1;
-  const dashArray = [10, 5];
+  const dashArray: number[] = [10, 5];
 
-  const [selectedShape, setSelectedShape] = useState('Прямокутник');
-  const [selectedSurface, setSelectedSurface] = useState('Підлога');
-  const [name, setName] = useState('');
-  const [settedWidth, setWidth] = useState('');
-  const [settedLength, setLength] = useState('');
+  const [selectedShape, setSelectedShape] = useState<ShapeTypes>(ShapeTypes.RECTANGLE);
+  const [selectedSurface, setSelectedSurface] = useState<SurfaceTypes>(SurfaceTypes.FLOOR);
+  const [name, setName] = useState<string>('');
+  const [settedWidth, setWidth] = useState<string>('');
+  const [settedLength, setLength] = useState<string>('');
 
   const widthMeters = parseFloat(settedWidth) || 2;
   const lengthMeters = parseFloat(settedLength) || 1;
@@ -33,6 +41,8 @@ const Stage1 = () => {
     scaledWidth = widthMeters * scaleFactor;
     scaledLength = lengthMeters * scaleFactor;
   }
+
+
   return (
     <View style={styles.container}>
       <View style={styles.rectContainer}>
@@ -89,26 +99,27 @@ const Stage1 = () => {
       </View>
 
       <View style={styles.chooseFigureBtnContainer}>
-        {['Прямокутник', 'Овал', 'Трапеція'].map(shape => (
+        {SHAPE_OPTIONS.map(({ label, value }) => (
           <DarkButton
-            key={shape}
-            onPress={() => setSelectedShape(shape)}
+            key={value}
+            onPress={() => setSelectedShape(value)}
             style={{
-              paddingVertical: 5,
-              paddingHorizontal: 5,
-              width: screenWidth * 0.27,
-              backgroundColor: selectedShape === shape ? '#333333' : '#ccc',
-            }}
+            paddingVertical: 5,
+            paddingHorizontal: 5,
+            width: screenWidth * 0.27,
+            backgroundColor: selectedShape === value ? '#333333' : '#ccc',
+          }}
           >
-            {shape}
+            {label}
           </DarkButton>
         ))}
+
       </View>
 
       <View style={styles.formContainer}>
         <Headline>Нова поверхня</Headline>
 
-        {selectedShape === 'Прямокутник' ? (
+        {selectedShape === 'RECTANGLE' ? (
           <>
             <UnderlinedInput
               value={name}
@@ -119,32 +130,32 @@ const Stage1 = () => {
             <UnderlinedInput
               value={settedWidth}
               setValue={v => setWidth(v)}
-              label={'Ширина(м)'}
+              label="Ширина(м)"
               inputType="numeric"
             />
             <UnderlinedInput
               value={settedLength}
               setValue={v => setLength(v)}
-              label={'Довжина(м)'}
+              label="Довжина(м)"
               inputType="numeric"
             />
 
             <View style={styles.chooseSurfaceBtnContainer}>
-              {['Підлога', 'Стіна'].map(surface => (
+              {SURFACE_OPTIONS.map(({ label, value }) => (
                 <DarkButton
-                  key={surface}
-                  onPress={() => setSelectedSurface(surface)}
+                  key={value}
+                  onPress={() => setSelectedSurface(value)}
                   style={{
                     paddingVertical: 5,
                     paddingHorizontal: 5,
                     width: screenWidth * 0.4,
-                    backgroundColor:
-                      selectedSurface === surface ? '#333333' : '#ccc',
+                    backgroundColor: selectedSurface === value ? '#333333' : '#ccc',
                   }}
                 >
-                  {surface}
+                  {label}
                 </DarkButton>
               ))}
+
             </View>
           </>
         ) : (
@@ -162,7 +173,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 30,
     paddingHorizontal: 20,
-    paddingTop: 35,
+    paddingTop: 20,
   },
   rectContainer: {
     alignItems: 'center',

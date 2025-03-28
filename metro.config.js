@@ -14,5 +14,6 @@ config.resolver.alias = {
   '@svg': path.resolve(projectRoot, 'assets/svg'),
   '@app': path.resolve(projectRoot, 'app'),
   '@store': path.resolve(projectRoot, 'store'),
+  '@surfacesConstants': path.resolve(projectRoot,'components/surfaces/constants')
 };
 module.exports = config;

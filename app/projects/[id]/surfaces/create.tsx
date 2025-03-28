@@ -28,11 +28,7 @@ export default function CreateSurface(): ReactElement {
   return (
     <ViewWithDoubleBackground
       style={[
-        styles.container,
-        {
-          paddingTop: stage === 0 ? 0 : 50,
-          padding: stage === 0 ? 0 : 20,
-        },
+        styles.container
       ]}
     >
       <ScrollView
@@ -67,8 +63,8 @@ export default function CreateSurface(): ReactElement {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    padding: 20,
-    paddingTop: 50,
+    paddingHorizontal:10,
+    paddingTop: 20,
     paddingBottom: 120,
     flex: 1,
     zIndex: 1,

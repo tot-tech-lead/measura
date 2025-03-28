@@ -1,15 +1,15 @@
 import { StyleSheet, View } from 'react-native';
 
-import Headline from '../../Headline';
-import UnderlinedInput from '../../UnderlinedInput';
+import Headline from '@components/Headline';
+import UnderlinedInput from '@components/UnderlinedInput';
 import { useState } from 'react';
 
 export default function Stage2({ data, setProperty }) {
-  const [tileWidth, setTileWidth] = useState('');
-  const [tileLength, setTileLength] = useState('');
-  const [tilePrice, setTilePrice] = useState('');
-  const [glueWeight, setGlueWeight] = useState('');
-  const [gluePrice, setGluePrice] = useState('');
+  const [tileWidth, setTileWidth] = useState<string>('');
+  const [tileLength, setTileLength] = useState<string>('');
+  const [tilePrice, setTilePrice] = useState<string>('');
+  const [glueWeight, setGlueWeight] = useState<string>('');
+  const [gluePrice, setGluePrice] = useState<string>('');
 
   return (
     <View style={styles.container}>
@@ -22,7 +22,7 @@ export default function Stage2({ data, setProperty }) {
       />
       <UnderlinedInput
         value={tileLength}
-        setValue={v => setTileWidth(v)}
+        setValue={v => setTileLength(v)}
         label={'Довжина плитки (мм.)'}
         inputType="numeric"
       />
@@ -58,5 +58,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 25,
     paddingHorizontal: 20,
+    paddingTop:50
   },
 });

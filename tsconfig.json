@@ -7,7 +7,8 @@
       "@fonts/*": ["assets/fonts/*"],
       "@svg/*": ["assets/svg/*"],
       "@app/*": ["app/*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["store/*"],
+      "@surfacesConstants/*": ["components/surfaces/constants/*"]
     }
   },
   "extends": "expo/tsconfig.base",

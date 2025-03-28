@@ -20,7 +20,6 @@
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/native": "^7.0.0",
     "@reduxjs/toolkit": "^2.5.0",
-    "@shopify/react-native-skia": "1.5.0",
     "@types/styled-components": "^5.1.34",
     "expo": "~52.0.19",
     "expo-asset": "~11.0.1",
