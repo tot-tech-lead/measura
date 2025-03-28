@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "paths": {
-      "@components": ["./components"],
-      "@lib": ["./lib"],
-      "@images": ["./assets/images"],
-      "@fonts": ["./assets/fonts"],
-      "@svg": ["./assets/svg"],
-      "@app": ["./app"],
-      "@store": ["./store"]
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
+      "@images/*": ["assets/images/*"],
+      "@fonts/*": ["assets/fonts/*"],
+      "@svg/*": ["assets/svg/*"],
+      "@app/*": ["app/*"],
+      "@store/*": ["store/*"],
+      "@surfacesConstants/*": ["components/surfaces/constants/*"]
     }
   },
   "extends": "expo/tsconfig.base",
