@@ -13,7 +13,17 @@ const fonts = [
   'GeologicaBlack',
 ];
 
-export default function Txt({ children, style = {}, ...props }) {
+import { TextStyle } from 'react-native';
+
+export default function Txt({
+  children,
+  style = {} as TextStyle,
+  ...props
+}: {
+  children: React.ReactNode;
+  style?: TextStyle;
+  [key: string]: any;
+}) {
   let font =
     fonts[
       style?.fontWeight ? Math.floor(Number(style.fontWeight) / 100) - 1 : 3
@@ -22,7 +32,7 @@ export default function Txt({ children, style = {}, ...props }) {
   return (
     <Text
       {...{ ...props }}
-      style={[{ fontFamily: font }, style, { fontWeight: 'auto' }]}
+      style={[{ fontFamily: font }, style]}
     >
       {children}
     </Text>

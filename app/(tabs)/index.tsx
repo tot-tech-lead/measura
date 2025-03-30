@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { Href, useRouter } from 'expo-router';
 
 import ViewWithBackground from '../../components/ViewWithBackground';
 import RoundedInput from '../../components/RoundedInput';
@@ -8,14 +8,18 @@ import Headline from '../../components/Headline';
 import ProjectCard from '../../components/ProjectCard';
 import RoundButton from '../../components/RoundButton';
 import { useSelector } from 'react-redux';
+import { ProjectsState } from '../../types/Project';
+
 
 const Index = () => {
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 
-  const Projects = useSelector(state => state.projects.projects);
+  const projects = useSelector(
+    (state: { projects: ProjectsState }) => state.projects.projects
+  );
 
-  const filteredProjects = Projects.filter(project => {
+  const filteredProjects = projects.filter(project => {
     return project.name.toLowerCase().includes(searchValue.toLowerCase());
   });
 
@@ -55,7 +59,7 @@ const Index = () => {
         </View>
       </ScrollView>
       <RoundButton
-        onPress={() => router.push('/projects/create')}
+        onPress={() => router.push('/projects/create' as Href)}
         iconSource={require('../../assets/images/AddIcon.png')}
       />
     </ViewWithBackground>

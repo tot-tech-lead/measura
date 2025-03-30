@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ViewWithDoubleBackground from '../../../components/ViewWithDoubleBackground';
@@ -18,6 +18,7 @@ import Txt from '../../../components/Text';
 import UnderlinedInput from '../../../components/UnderlinedInput';
 import DarkButton from '../../../components/DarkButton';
 import { editOne } from '../../../store/additionalServices/additionalServices';
+import { AdditionalServicesState } from '../../../types/AdditionalService';
 
 const encodeType = {
   'одиницю площі': 'forArea',
@@ -28,7 +29,8 @@ export default function EditService() {
   const router = useRouter();
   const dispatch = useDispatch();
   const additionalServices = useSelector(
-    state => state.additionalServices.additionalServices
+    (state: { additionalServices: AdditionalServicesState }) =>
+      state.additionalServices.additionalServices
   );
   const { id } = useLocalSearchParams();
 
@@ -85,7 +87,7 @@ export default function EditService() {
 
     dispatch(editOne(updatedService));
     alert('Послугу успішно змінено!');
-    router.push('/additionalServices');
+    router.push('/additionalServices' as Href);
   }, [name, price, type, id, dispatch, router]);
 
   const readableType = useMemo(
@@ -97,7 +99,7 @@ export default function EditService() {
     <ViewWithDoubleBackground>
       <ScrollView contentContainerStyle={styles.container}>
         <Headline>Редагування послуги</Headline>
-        <View style={styles.formContainer}>
+        <View>
           <UnderlinedInput
             value={name}
             setValue={setName}
@@ -132,7 +134,7 @@ export default function EditService() {
       <View style={styles.actionButtons}>
         <DarkButton
           style={{ width: Dimensions.get('window').width / 2 - 27.5 }}
-          onPress={() => router.navigate('/additionalServices')}
+          onPress={() => router.navigate('/additionalServices' as Href)}
         >
           Назад
         </DarkButton>

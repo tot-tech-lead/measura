@@ -15,7 +15,7 @@ import ViewWithBackground from '../../components/ViewWithBackground';
 import Headline from '../../components/Headline';
 import DarkButton from '../../components/DarkButton';
 import UnderlinedInput from '../../components/UnderlinedInput';
-import { useRouter } from 'expo-router';
+import { Href, useRouter } from 'expo-router';
 import Txt from '../../components/Text';
 
 import { addNew } from '../../store/additionalServices/additionalServices';
@@ -77,7 +77,7 @@ export default function CreateService() {
     dispatch(addNew(newAdditionalService));
     alert('Додаткову послугу створено!');
 
-    router.navigate('/additionalServices');
+    router.navigate('/additionalServices' as Href);
   };
 
   return (
@@ -119,7 +119,7 @@ export default function CreateService() {
           style={{
             width: Dimensions.get('window').width / 2 - 27.5,
           }}
-          onPress={() => router.navigate('/additionalServices')}
+          onPress={() => router.navigate('/additionalServices'  as Href)}
         >
           Скасувати
         </DarkButton>

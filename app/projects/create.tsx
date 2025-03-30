@@ -1,6 +1,6 @@
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import { useCallback, useMemo, useState } from 'react';
-import { useRouter } from 'expo-router';
+import { Href, useRouter } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ViewWithDoubleBackground from '../../components/ViewWithDoubleBackground';
@@ -11,6 +11,7 @@ import DarkButton from '../../components/DarkButton';
 import StageBar from '../../components/projects/StageBar';
 import projectValidationSchema from '../../lib/validateProjectForm';
 import { addNew } from '../../store/projects/projects';
+import { AdditionalServicesState, ServicesState } from '../../types';
 
 function getIds(arr) {
   return arr.map(item => item.id);
@@ -20,9 +21,12 @@ export default function CreateProject() {
   let dispatch = useDispatch();
 
   let router = useRouter();
-  let serviceIDs = useSelector(state => state.services.services);
+  let serviceIDs = useSelector(
+    (state: { services: ServicesState }) => state.services.services
+  );
   let additionalServiceIDs = useSelector(
-    state => state.additionalServices.additionalServices
+    (state: { additionalServices: AdditionalServicesState }) =>
+      state.additionalServices.additionalServices
   );
   let [stage, setStage] = useState(0);
   let [data, setData] = useState({});
@@ -57,7 +61,7 @@ export default function CreateProject() {
     if (stage > 0) {
       setStage(stage - 1);
     } else {
-      router.push('/');
+      router.push('/' as Href);
     }
   }, [stage]);
 
@@ -69,16 +73,19 @@ export default function CreateProject() {
     };
   };
 
-  let create = useCallback(async () => {
-    try {
-      const resultOfValidation = await validationSchema.validate(data);
-      dispatch(addNew(prepareToStore(resultOfValidation)));
-      router.push('/');
-      alert('Новий проект створено!');
-    } catch (validationError) {
-      alert('- ' + validationError.inner.join('\n- '));
-    }
-  }, [validationSchema, data]);
+  let create = useCallback(
+    async data => {
+      try {
+        const resultOfValidation = await validationSchema.validate(data);
+        dispatch(addNew(prepareToStore(resultOfValidation)));
+        router.push('/' as Href);
+        alert('Новий проект створено!');
+      } catch (validationError) {
+        alert('- ' + validationError.inner.join('\n- '));
+      }
+    },
+    [validationSchema, data]
+  );
 
   let goForward = useCallback(() => {
     if (stage < stagesArray.length - 1) {

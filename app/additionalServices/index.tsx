@@ -2,11 +2,12 @@ import { StyleSheet, View } from 'react-native';
 import Txt from '../../components/Text';
 import Headline from '../../components/Headline';
 import { useMemo } from 'react';
-import { useRouter } from 'expo-router';
+import { Href, useRouter } from 'expo-router';
 import RoundButton from '../../components/RoundButton';
 import ViewWithDoubleBackground from '../../components/ViewWithDoubleBackground';
 import { useSelector } from 'react-redux';
 import AdditionalServiceCard from '../../components/AdditionalServiceCard';
+import { AdditionalServicesState } from '../../types/AdditionalService';
 
 const decodeType = {
   forArea: 'одиницю площі',
@@ -16,7 +17,8 @@ const decodeType = {
 export default function Services() {
   let router = useRouter();
   let additionalServices = useSelector(
-    state => state.additionalServices.additionalServices
+    (state: { additionalServices: AdditionalServicesState }) =>
+      state.additionalServices.additionalServices
   );
   let list = useMemo(() => {
     return additionalServices.map(item => ({
@@ -37,7 +39,7 @@ export default function Services() {
       </View>
       <RoundButton
         iconSource={require('../../assets/images/AddIcon.png')}
-        onPress={() => router.push('/additionalServices/create')}
+        onPress={() => router.push('/additionalServices/create' as Href)}
       />
     </ViewWithDoubleBackground>
   );

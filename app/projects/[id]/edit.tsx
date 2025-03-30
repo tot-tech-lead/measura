@@ -1,6 +1,6 @@
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useRouter, useLocalSearchParams, Href } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ViewWithDoubleBackground from '../../../components/ViewWithDoubleBackground';
@@ -13,6 +13,16 @@ import { createdProjectValidationSchema } from '../../../lib/validateProjectForm
 import { editOne } from '../../../store/projects/projects';
 import Headline from '../../../components/Headline';
 import Txt from '../../../components/Text';
+import { AdditionalServicesState } from '../../../types/AdditionalService';
+import { ProjectsState } from '../../../types/Project';
+import { ServicesState } from '../../../types';
+
+type Data = {
+  id?: string;
+  tileWidth?: number;
+  tileHeight?: number;
+  [key: string]: any;
+};
 
 function getIds(arr) {
   return arr.map(item => item.id);
@@ -31,13 +41,18 @@ export default function CreateProject() {
   let router = useRouter();
 
   let { id } = useLocalSearchParams();
-  let projects = useSelector(state => state.projects.projects);
-  let serviceIDs = useSelector(state => state.services.services);
+  let projects = useSelector(
+    (state: { projects: ProjectsState }) => state.projects.projects
+  );
+  let serviceIDs = useSelector(
+    (state: { services: ServicesState }) => state.services.services
+  );
   let additionalServiceIDs = useSelector(
-    state => state.additionalServices.additionalServices
+    (state: { additionalServices: AdditionalServicesState }) =>
+      state.additionalServices.additionalServices
   );
   let [stage, setStage] = useState(0);
-  let [data, setData] = useState({});
+  let [data, setData] = useState<Data>({});
 
   let validationSchema = useMemo(() => {
     return createdProjectValidationSchema(
@@ -47,7 +62,7 @@ export default function CreateProject() {
   }, [serviceIDs, additionalServiceIDs]);
 
   let setProperty = useCallback(
-    (key, value) => {
+    (key: keyof Data, value: any) => {
       setData(prevData => ({
         ...prevData,
         [key]: value,
@@ -69,7 +84,7 @@ export default function CreateProject() {
     if (stage > 0) {
       setStage(stage - 1);
     } else {
-      router.push('/');
+      router.push('/' as Href);
     }
   }, [stage]);
 
@@ -81,22 +96,25 @@ export default function CreateProject() {
     };
   };
 
-  let save = useCallback(async () => {
-    try {
-      const resultOfValidation = await validationSchema.validate(data);
-      dispatch(editOne(prepareToStore(resultOfValidation)));
-      router.push('/');
-      alert('Проект змінено успішно!');
-    } catch (validationError) {
-      alert('- ' + validationError.inner.join('\n- '));
-    }
-  }, [validationSchema, data]);
+  let save = useCallback(
+    async (data: Data) => {
+      try {
+        const resultOfValidation = await validationSchema.validate(data);
+        dispatch(editOne(prepareToStore(resultOfValidation)));
+        router.push('/' as Href);
+        alert('Проект змінено успішно!');
+      } catch (validationError) {
+        alert('- ' + validationError.inner.join('\n- '));
+      }
+    },
+    [validationSchema, data]
+  );
 
   let goForward = useCallback(() => {
     if (stage < stagesArray.length - 1) {
       setStage(stage + 1);
     } else {
-      save(data);
+      save(data); // I will pray that this will work
     }
   }, [stage, save]);
 

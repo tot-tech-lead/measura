@@ -1,16 +1,19 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import Headline from '../../components/Headline';
-import { Link, useRouter } from 'expo-router';
+import { Href, Link, useRouter } from 'expo-router';
 import RoundButton from '../../components/RoundButton';
 import ViewWithDoubleBackground from '../../components/ViewWithDoubleBackground';
 import Txt from '../../components/Text';
 import { useSelector } from 'react-redux';
 import ServiceCard from '../../components/ServiceCard';
+import { ServicesState } from '../../types';
 
 export default function Services() {
   let router = useRouter();
-  let services = useSelector(state => state.services.services);
+  let services = useSelector(
+    (state: { services: ServicesState }) => state.services.services
+  );
 
   return (
     <ViewWithDoubleBackground>
@@ -24,7 +27,7 @@ export default function Services() {
       </View>
       <RoundButton
         iconSource={require('../../assets/images/AddIcon.png')}
-        onPress={() => router.push('/services/create')}
+        onPress={() => router.push('/services/create' as Href)}
       />
     </ViewWithDoubleBackground>
   );

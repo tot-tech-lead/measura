@@ -1,6 +1,6 @@
 import { View, Image, StyleSheet } from 'react-native';
 
-import notFoundImage from '../assets/SVG/not-found.svg';
+const notFoundImage = require('../assets/SVG/not-found.svg');
 import Txt from '../components/Text';
 
 export default function NotFound(props) {
