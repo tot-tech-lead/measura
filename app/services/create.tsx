@@ -6,34 +6,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useCallback, useEffect, useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useState } from 'react';
+import { Href, useRouter } from 'expo-router';
+import { useDispatch } from 'react-redux';
 
-import ViewWithDoubleBackground from '../../../components/ViewWithDoubleBackground';
-import Headline from '../../../components/Headline';
-import Txt from '../../../components/Text';
-import UnderlinedInput from '../../../components/UnderlinedInput';
-import DarkButton from '../../../components/DarkButton';
-import { editOne } from '../../../store/services/services';
+import ViewWithDoubleBackground from '../../components/ViewWithDoubleBackground';
+import Headline from '../../components/Headline';
+import Txt from '../../components/Text';
+import UnderlinedInput from '../../components/UnderlinedInput';
+import DarkButton from '../../components/DarkButton';
+import { addNew } from '../../store/services/services';
 
 export default function CreateService() {
   let router = useRouter();
   let dispatch = useDispatch();
-  let services = useSelector(state => state.services.services);
-  let { id } = useLocalSearchParams();
 
   let [conditions, setConditions] = useState(['']);
   let [price, setPrice] = useState('');
-
-  useEffect(() => {
-    if (services && id) {
-      let currentObject = services.find(item => item.id === id);
-
-      setConditions(currentObject.conditions);
-      setPrice(String(currentObject.price));
-    }
-  }, [id]);
 
   const addCondition = useCallback(() => {
     if (conditions.length >= 5) {
@@ -98,21 +87,20 @@ export default function CreateService() {
     }
 
     let newService = {
-      id: id,
       price: localPrice,
       conditions: conditionsCopy,
     };
 
-    dispatch(editOne(newService));
-    alert('Послугу змінено!');
+    dispatch(addNew(newService));
+    alert('Послугу створено!');
 
-    router.push('/services');
+    router.push('/services' as Href);
   }, [conditions, price]);
 
   return (
     <ViewWithDoubleBackground>
       <ScrollView contentContainerStyle={styles.container}>
-        <Headline>Змініть послугу</Headline>
+        <Headline>Нова послуга</Headline>
         <View style={styles.formContainer}>
           <View style={styles.conditions}>
             <Txt style={styles.conditionsHeadline}>Умови:</Txt>
@@ -122,7 +110,7 @@ export default function CreateService() {
             >
               <Image
                 style={styles.conditionsAddIcon}
-                source={require('../../../assets/images/AddIcon.png')}
+                source={require('../../assets/images/AddIcon.png')}
               />
             </TouchableOpacity>
           </View>
@@ -141,7 +129,7 @@ export default function CreateService() {
                 >
                   <Image
                     style={styles.conditionsInputRemoveIcon}
-                    source={require('../../../assets/images/remove-icon.png')}
+                    source={require('../../assets/images/remove-icon.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -150,7 +138,7 @@ export default function CreateService() {
           <UnderlinedInput
             value={price}
             setValue={v => setPrice(v)}
-            label="Вартість"
+            label="Вартість (за 1 м²)"
             inputType="decimal-pad"
           />
         </View>
@@ -158,7 +146,7 @@ export default function CreateService() {
       <View style={styles.actionButtons}>
         <DarkButton
           style={{ width: Dimensions.get('window').width / 2 - 27.5 }}
-          onPress={() => router.navigate('/services')}
+          onPress={() => router.navigate('/services' as Href)}
         >
           Назад
         </DarkButton>
@@ -166,7 +154,7 @@ export default function CreateService() {
           style={{ width: Dimensions.get('window').width / 2 - 27.5 }}
           onPress={saveHandler}
         >
-          Зберегти
+          Створити
         </DarkButton>
       </View>
     </ViewWithDoubleBackground>
@@ -183,7 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     gap: 25,
-    zIndex: 1,
+    zIndex: 6,
   },
   formContainer: {
     width: '100%',

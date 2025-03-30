@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState, useRef } from 'react';
 import {
   Animated,
@@ -14,12 +14,19 @@ import {
 import ViewWithDoubleBackground from '../../../components/ViewWithDoubleBackground';
 import Headline from '../../../components/Headline';
 import { useDispatch, useSelector } from 'react-redux';
-import defaultImg from '../../../assets/images/card/default-cover.png';
 import useCalculateProjectDetails from '../../../lib/calculations';
 import Txt from '../../../components/Text';
 import RoundButton from '../../../components/RoundButton';
 import { deleteOne } from '../../../store/projects/projects';
 import Checkbox from '../../../components/UI/Checkbox/Checkbox';
+import {
+  AdditionalServicesState,
+  ProjectInfoState,
+  ServicesState,
+} from '../../../types';
+
+const defaultImg = require('../../../assets/images/card/default-cover.png');
+
 
 export default function ViewProject() {
   let { id } = useLocalSearchParams();
@@ -27,7 +34,7 @@ export default function ViewProject() {
   const [isChecked, setIsChecked] = useState(false);
 
   let router = useRouter();
-  const projectInfo = useSelector(state =>
+  const projectInfo = useSelector((state: { projects: ProjectInfoState }) =>
     state.projects.projects.find(project => project.id === id)
   );
   if (!projectInfo) {
@@ -52,14 +59,15 @@ export default function ViewProject() {
   const calculated = useCalculateProjectDetails(project);
 
   const AdditionalServices = useSelector(
-    state => state.additionalServices.additionalServices
+    (state: { additionalServices: AdditionalServicesState }) =>
+      state.additionalServices.additionalServices
   );
 
   const filteredAdditionalServices = AdditionalServices.filter(obj =>
     projectInfo.services.includes(obj.id)
   );
 
-  const service = useSelector(state =>
+  const service = useSelector((state: { services: ServicesState }) =>
     state.services.services.find(service => service.id === projectInfo.tarif)
   );
 
@@ -94,7 +102,7 @@ export default function ViewProject() {
 
   const handleDelete = id => {
     setModalVisible(false);
-    router.replace(`/projects`);
+    router.replace(`/projects` as Href);
     setTimeout(() => {
       dispatch(deleteOne(id));
       alert('Проект видалено!');
@@ -271,7 +279,7 @@ export default function ViewProject() {
           <RoundButton
             iconSource={require('../../../assets/images/card/bill.png')}
             onPress={() =>
-              router.navigate(`/projects/${projectInfo.id}/pricelist`)
+              router.navigate(`/projects/${projectInfo.id}/pricelist`  as Href)
             }
           />
         </Animated.View>
@@ -296,7 +304,7 @@ export default function ViewProject() {
         >
           <RoundButton
             iconSource={require('../../../assets/images/card/edit.png')}
-            onPress={() => router.navigate(`/projects/${projectInfo.id}/edit`)}
+            onPress={() => router.navigate(`/projects/${projectInfo.id}/edit` as Href)}
           />
         </Animated.View>
       </View>

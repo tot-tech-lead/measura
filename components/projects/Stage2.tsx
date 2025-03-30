@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 
-import Headline from '../../components/Headline';
+import Headline from '../Headline';
 import UnderlinedInput from '../UnderlinedInput';
 
 export default function Stage2({ data, setProperty }) {

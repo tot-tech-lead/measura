@@ -15,7 +15,8 @@ const RoundButton = ({
       <Image
         source={iconSource}
         style={{ width: size, height: size, resizeMode: 'contain' }}
-        size={20}
+        width={20}
+        height={20}
       />
     </TouchableOpacity>
   );

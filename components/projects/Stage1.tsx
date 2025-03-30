@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
-import Headline from '../../components/Headline';
+import Headline from '../Headline';
 import UnderlinedInput from '../UnderlinedInput';
 import DarkButton from '../DarkButton';
 

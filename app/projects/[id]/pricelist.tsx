@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { Href, useLocalSearchParams } from 'expo-router';
 import ViewWithDoubleBackground from '../../../components/ViewWithDoubleBackground';
 import Headline from '../../../components/Headline';
 import DarkButton from '../../../components/DarkButton';
@@ -12,12 +12,14 @@ import * as Print from 'expo-print';
 import useCalculateProjectDetails from '../../../lib/calculations';
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { ProjectInfo } from '../../../types';
 
 export default function ViewProject() {
   const { id } = useLocalSearchParams();
 
-  const projectInfo = useSelector(state =>
-    state.projects.projects.find(project => project.id === id)
+  const projectInfo = useSelector(
+    (state: { projects: { projects: ProjectInfo[] } }) =>
+      state.projects.projects.find(project => project.id === id)
   );
   const projectData = {
     area: projectInfo.area,
@@ -32,9 +34,13 @@ export default function ViewProject() {
 
   const calculations = useCalculateProjectDetails(projectData);
 
-  const viewShotRef = useRef();
+  const viewShotRef = useRef<ViewShot>(null);
   const saveAsPNG = async () => {
     try {
+      if (!viewShotRef.current) {
+        console.error('viewShotRef is not defined');
+        return;
+      }
       const uri = await viewShotRef.current.capture();
       const fileUri = `${FileSystem.documentDirectory}estimate.png`;
 
@@ -130,7 +136,7 @@ export default function ViewProject() {
           Зберегти JPG
         </DarkButton>
         <DarkButton
-          onPress={() => router.push('/')}
+          onPress={() => router.push('/' as Href)}
           style={styles.button}
           iconSource={require('../../../assets/images/homeIcon.png')}
           iconPlacement="before"

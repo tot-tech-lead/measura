@@ -8,19 +8,23 @@ import {
 } from 'react-native';
 import { useCallback, useEffect, useState } from 'react';
 
-import Headline from '../../components/Headline';
+import Headline from '../Headline';
 import Checkbox from '../UI/Checkbox/Checkbox';
 import { useSelector } from 'react-redux';
 import Txt from '../Text';
 import UnderlinedInput from '../UnderlinedInput';
+import { AdditionalServicesState, ServicesState } from '../../types';
 
 export default function Stage3({ data, setProperty }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const services = useSelector(state => state.services.services);
+  const services = useSelector(
+    (state: { services: ServicesState }) => state.services.services
+  );
   const options = services.map(item => item.conditions.join(' + '));
 
   let additionalServices = useSelector(
-    state => state.additionalServices.additionalServices
+    (state: { additionalServices: AdditionalServicesState }) =>
+      state.additionalServices.additionalServices
   );
   let [selectedServices, setSelectedServices] = useState(data.services || []);
 

@@ -1,6 +1,7 @@
-import projectsActiveIcon from '../../assets/images/tabs/projects_active.png';
-import projectsDisabledIcon from '../../assets/images/tabs/projects_disabled.png';
 import { Image } from 'react-native';
+
+const projectsActiveIcon = require('../../assets/images/tabs/projects_active.png');
+const projectsDisabledIcon = require('../../assets/images/tabs/projects_disabled.png');
 
 export default function ProjectsIcon({ active, size }) {
   return (
